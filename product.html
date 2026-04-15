@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="navbar">
+  <div class="logo">🌸 FlowerShop</div>
+  <nav>
+    <a href="index.html">Home</a>
+  </nav>
+</header>
+
+<!-- PRODUCT SECTION -->
+<section class="product-detail">
+
+  <div class="product-container">
+
+    <img id="product-image" src="" alt="Product Image">
+
+    <div class="details">
+      <h2 id="product-name">Loading...</h2>
+      <p id="product-price">₹0</p>
+      <p id="product-description">Please wait while we load product details.</p>
+
+      <button class="btn primary">Order Now</button>
+      <button class="btn whatsapp" id="whatsappBtn">WhatsApp</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 FlowerShop | All Rights Reserved</p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+
+const API_URL = "https://opensheet.elk.sh/1SzJ6PfHvEEJSkRN-Ne5uEVmOLrbst0OfdyPqVwRzkO8/Sheet1";
+
+// Get product ID from URL
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+// Fetch products
+fetch(API_URL)
+  .then(res => res.json())
+  .then(data => {
+
+    const product = data.find(p => p.id == id);
+
+    if (!product) {
+      document.body.innerHTML = "<h2 style='text-align:center'>Product not found</h2>";
+      return;
+    }
+
+    // Fill UI
+    document.getElementById("product-image").src = product.image;
+    document.getElementById("product-name").innerText = product.name;
+    document.getElementById("product-price").innerText = "₹" + product.price;
+    document.getElementById("product-description").innerText = product.description;
+
+    // WhatsApp button
+    const whatsappBtn = document.getElementById("whatsappBtn");
+
+    whatsappBtn.onclick = () => {
+      const message =
+        `I want to order:\n\n` +
+        `Product: ${product.name}\n` +
+        `Price: ₹${product.price}\n`;
+
+      window.open(
+        `https://wa.me/919999999999?text=${encodeURIComponent(message)}`,
+        "_blank"
+      );
+    };
+
+  })
+  .catch(error => {
+    console.error("Error loading product:", error);
+    document.body.innerHTML = "<h2 style='text-align:center'>Failed to load product</h2>";
+  });
+
+</script>
+
+</body>
+</html>

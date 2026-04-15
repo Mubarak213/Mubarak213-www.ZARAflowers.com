@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flower Shop</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="navbar">
+  <div class="logo">🌸 FlowerShop</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#categories">Categories</a>
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Fresh Flowers Delivered Same Day</h1>
+    <p>Beautiful bouquets for every occasion</p>
+    <div class="buttons">
+      <a href="#products" class="btn primary">Order Now</a>
+      <a href="https://wa.me/919999999999" target="_blank" class="btn whatsapp">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories" class="categories">
+  <h2>Shop by Category</h2>
+  <div class="grid">
+    <a href="category.html?type=birthday" class="card">🎂 Birthday</a>
+    <a href="category.html?type=wedding" class="card">💍 Wedding</a>
+    <a href="category.html?type=garlands" class="card">🌼 Garlands</a>
+    <a href="category.html?type=custom" class="card">🎁 Custom</a>
+  </div>
+</section>
+
+<!-- PRODUCTS (DYNAMIC) -->
+<section id="products" class="products">
+  <h2>Featured Products</h2>
+  <div id="product-list" class="grid"></div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <h2>Why Choose Us</h2>
+  <div class="why-grid">
+    <div>🌸 Fresh Flowers</div>
+    <div>🚚 Same Day Delivery</div>
+    <div>💰 Affordable Price</div>
+    <div>🎨 Custom Orders</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="cta">
+  <h2>Order Now via Call or WhatsApp</h2>
+  <div class="buttons">
+    <a href="tel:+919999999999" class="btn primary">Call Now</a>
+    <a href="https://wa.me/919999999999" target="_blank" class="btn whatsapp">WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 FlowerShop | All Rights Reserved</p>
+</footer>
+
+<!-- SCRIPT: FETCH PRODUCTS FROM GOOGLE SHEETS -->
+<script>
+const API_URL = "https://opensheet.elk.sh/1SzJ6PfHvEEJSkRN-Ne5uEVmOLrbst0OfdyPqVwRzkO8/Sheet1";
+
+fetch(API_URL)
+  .then(res => res.json())
+  .then(data => {
+
+    const container = document.getElementById("product-list");
+
+    if (!data || data.length === 0) {
+      container.innerHTML = "<p>No products available</p>";
+      return;
+    }
+
+    // Show only first 6 products on homepage
+    data.slice(0, 6).forEach(product => {
+
+      container.innerHTML += `
+        <a href="product.html?id=${product.id}" class="product-card">
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>₹${product.price}</p>
+          <span class="btn small">View</span>
+        </a>
+      `;
+
+    });
+
+  })
+  .catch(error => {
+    console.error("Error loading products:", error);
+    document.getElementById("product-list").innerHTML =
+      "<p>Failed to load products</p>";
+  });
+</script>
+
+</body>
+</html>
