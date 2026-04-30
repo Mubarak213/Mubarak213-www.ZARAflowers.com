@@ -1,114 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Flower Shop</title>
-  <link rel="stylesheet" href="style.css"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ShopMart</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="navbar">
-  <div class="logo">🌸 Zara Flowers</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="#categories">Categories</a>
-    <a href="#products">Products</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="logo">ShopMart</div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <span>🔍</span>
+  </div>
+
+  <div class="actions">
+    <div class="btn">Login</div>
+
+    <!-- ✅ FIXED: clickable cart -->
+    <a href="cart.html" class="btn">
+      Cart 🛒 <span id="cart-count">0</span>
+    </a>
+  </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Fresh Flowers Delivered Same Day</h1>
-    <p>Beautiful bouquets for every occasion</p>
-    <div class="buttons">
-      <a href="#products" class="btn primary">Order Now</a>
-      <a href="https://wa.me/919159842232" target="_blank" class="btn whatsapp">WhatsApp</a>
+<!-- ================= CATEGORY ================= -->
+<nav class="category-bar">
+  <a href="flowers.html">🌸 Flowers</a>
+  <a href="dryfruits.html">🥜 Dry Fruits</a>
+  <a href="grocery.html">🛒 Grocery</a>      <!-- fixed lowercase -->
+  <a href="gifts.html">🎁 Gifts</a>          <!-- fixed lowercase -->
+  <a href="birthday.html">🎂 Birthday</a>
+  <a href="electronics.html">📱 Electronics</a> <!-- fixed lowercase -->
+</nav>
+
+<!-- ================= BANNER ================= -->
+<section class="banner">
+  <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6">
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="section">
+  <h2>🌟 Latest Products</h2>
+  <div id="product-container" class="grid"></div>
+</section>
+
+<!-- ================= FLOWERS ================= -->
+<section class="section">
+  <h2>🌸 Flowers Deals</h2>
+  <!-- ✅ FIXED: dynamic system -->
+  <div class="grid" data-category="flowers"></div>
+</section>
+
+<!-- ================= DRY FRUITS ================= -->
+<section class="section">
+  <h2>🥜 Dry Fruits Offers</h2>
+  <!-- ✅ FIXED: dynamic system -->
+  <div class="grid" data-category="dryfruits"></div>
+</section>
+
+<!-- ================= CO-FOUNDERS ================= -->
+<section class="section founders-section">
+  <h2>👨‍💼 Co-Founders</h2>
+
+  <div class="slider">
+
+    <div class="slide active">
+      <img src="https://i.pravatar.cc/300?img=12">
+      <div class="info">
+        <h3>Rahul Sharma</h3>
+        <p>CEO & Founder of ShopMart</p>
+      </div>
     </div>
+
+    <div class="slide">
+      <img src="https://i.pravatar.cc/300?img=32">
+      <div class="info">
+        <h3>Amit Verma</h3>
+        <p>CTO & Tech Architect</p>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="https://i.pravatar.cc/300?img=45">
+      <div class="info">
+        <h3>Pooja Singh</h3>
+        <p>CMO & Marketing Head</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- CATEGORIES -->
-<section id="categories" class="categories">
-  <h2>Shop by Category</h2>
-  <div class="grid">
-    <a href="category.html?type=birthday" class="card">🎂 Birthday</a>
-    <a href="category.html?type=wedding" class="card">💍 Wedding</a>
-    <a href="category.html?type=garlands" class="card">🌼 Garlands</a>
-    <a href="category.html?type=custom" class="card">🎁 Custom</a>
-  </div>
-</section>
+<!-- ================= CONTACT BUTTONS ================= -->
+<div class="contact-buttons">
+  
+  <a href="tel:+919876543210" class="call-btn">
+    📞 Call Us
+  </a>
 
-<!-- PRODUCTS (DYNAMIC) -->
-<section id="products" class="products">
-  <h2>Featured Products</h2>
-  <div id="product-list" class="grid"></div>
-</section>
+  <a href="https://wa.me/919876543210?text=Hello%20I%20need%20help%20with%20ShopMart" 
+     target="_blank" 
+     class="whatsapp-btn">
+     💬 WhatsApp
+  </a>
 
-<!-- WHY US -->
-<section class="why">
-  <h2>Why Choose Us</h2>
-  <div class="why-grid">
-    <div>🌸 Fresh Flowers</div>
-    <div>🚚 Same Day Delivery</div>
-    <div>💰 Affordable Price</div>
-    <div>🎨 Custom Orders</div>
-  </div>
-</section>
+</div>
 
-<!-- CONTACT -->
-<section id="contact" class="cta">
-  <h2>Order Now via Call or WhatsApp</h2>
-  <div class="buttons">
-    <a href="tel:+919159842232" class="btn primary">Call Now</a>
-    <a href="https://wa.me/919159842232" target="_blank" class="btn whatsapp">WhatsApp</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 <footer>
-  <p>© 2026 ZARA Flowers | All Rights Reserved</p>
+  © 2026 ShopMart | All Rights Reserved
 </footer>
 
-<!-- SCRIPT: FETCH PRODUCTS FROM GOOGLE SHEETS -->
-<script>
-const API_URL = "https://opensheet.elk.sh/1SzJ6PfHvEEJSkRN-Ne5uEVmOLrbst0OfdyPqVwRzkO8/Sheet1";
-
-fetch(API_URL)
-  .then(res => res.json())
-  .then(data => {
-
-    const container = document.getElementById("product-list");
-
-    if (!data || data.length === 0) {
-      container.innerHTML = "<p>No products available</p>";
-      return;
-    }
-
-    // Show only first 6 products on homepage
-    data.slice(0, 6).forEach(product => {
-
-      container.innerHTML += `
-        <a href="product.html?id=${product.id}" class="product-card">
-          <img src="${product.image}" alt="${product.name}">
-          <h3>${product.name}</h3>
-          <p>₹${product.price}</p>
-          <span class="btn small">View</span>
-        </a>
-      `;
-
-    });
-
-  })
-  .catch(error => {
-    console.error("Error loading products:", error);
-    document.getElementById("product-list").innerHTML =
-      "<p>Failed to load products</p>";
-  });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
