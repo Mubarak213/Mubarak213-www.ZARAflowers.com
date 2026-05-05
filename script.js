@@ -258,7 +258,7 @@ function checkoutWhatsApp() {
   message += "%0A📦 Please confirm my order.";
 
   // ✅ Your WhatsApp number (no + sign)
-  const phone = "919876543210";
+  const phone = "919159842232";
 
   const url = `https://wa.me/${phone}?text=${message}`;
 
