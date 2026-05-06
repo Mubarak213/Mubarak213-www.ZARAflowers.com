@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dry Fruits - ShopMart</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dry Fruits - ShopMart</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -12,21 +12,17 @@
 <header class="header">
   <div class="logo">ShopMart</div>
 
-  <div class="actions">
-    <!-- Cart count -->
-    <div class="btn">
-
-    <!-- ✅ FIXED: clickable cart -->
-    <a href="cart.html" class="btn">
-      Cart 🛒 <span id="cart-count">0</span>
-    </a>
-  </div>
+  <!-- Cart -->
+  <a href="cart.html" class="btn">
+    Cart 🛒 <span id="cart-count">0</span>
+  </a>
 </header>
 
-<!-- ================= CATEGORY NAV ================= -->
+<!-- ================= NAVIGATION ================= -->
 <nav class="category-bar">
   <a href="index.html">🏠 Home</a>
   <a href="flowers.html">🌸 Flowers</a>
+  <a href="dryfruits.html">🥜 Dry Fruits</a>
   <a href="grocery.html">🛒 Grocery</a>
   <a href="gifts.html">🎁 Gifts</a>
   <a href="birthday.html">🎂 Birthday</a>
@@ -37,19 +33,23 @@
 <section class="section">
   <h2>🥜 Dry Fruits Collection</h2>
 
-  <!-- 🔥 Dynamic category container -->
-  <div class="grid" data-category="dryfruits"></div>
+  <!-- 🔥 SAME STRUCTURE (just ID changed) -->
+  <div id="dryfruitsCategories"></div>
+
+  <!-- (Optional future API section – keep hidden if not used) -->
+  <!-- <div class="category-container" data-category="dryfruits"></div> -->
+
 </section>
 
 <!-- ================= CONTACT BUTTONS ================= -->
 <div class="contact-buttons">
-  
+
   <a href="tel:+919159842232" class="call-btn">
     📞 Call Us
   </a>
 
-  <a href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20ShopMart" 
-     target="_blank" 
+  <a href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20dry%20fruits"
+     target="_blank"
      class="whatsapp-btn">
      💬 WhatsApp
   </a>

@@ -1,18 +1,188 @@
-/* ================= API ================= */
+// ================= NEW ARRIVALS (SEPARATE DATA) =================
 
-const API_URL = "https://opensheet.elk.sh/1SzJ6PfHvEEJSkRN-Ne5uEVmOLrbst0OfdyPqVwRzkO8/Sheet1";
+const newArrivals = [
+  {
+    category: "flowers",
+    title: "🌸 Flowers New Arrivals",
+    subcategories: [
+      {
+        name: "Jadai",
+        products: [
+          { name: "Jadai Premium", price: 400, img: "images/jadai.jpg" },
+          { name: "Jadai Deluxe", price: 600, img: "images/jadai.jpg" }
+        ]
+      }
+    ]
+  },
+  {
+    category: "grocery",
+    title: "🛒 Grocery New Arrivals",
+    subcategories: [
+      {
+        name: "Oils",
+        products: [
+          { name: "Olive Oil", price: 250, img: "images/oil.jpg" },
+          { name: "Groundnut Oil", price: 180, img: "images/oil.jpg" }
+        ]
+      }
+    ]
+  },
+  {
+    category: "dryfruits",
+    title: "🥜 Dry Fruits New Arrivals",
+    subcategories: [
+      {
+        name: "Premium Nuts",
+        products: [
+          { name: "Imported Almonds", price: 900, img: "images/almond.jpg" }
+        ]
+      }
+    ]
+  }
+];
+
+// ================= CATEGORY DATA =================
+
+// FLOWERS
+const flowerCategories = [
+  {
+    title: "👶 Baby Shower",
+    subcategories: [
+      {
+        name: "Jadai",
+        img: "images/jadai.jpg",
+        products: [
+          { name: "Jadai Small", price: 200, img: "images/jadai.jpg" },
+          { name: "Jadai Premium", price: 400, img: "images/jadai.jpg" }
+        ]
+      },
+      {
+        name: "Malai",
+        img: "images/malai.jpg",
+        products: [
+          { name: "Rose Malai", price: 300, img: "images/malai.jpg" },
+          { name: "Jasmine Malai", price: 350, img: "images/malai.jpg" }
+        ]
+      }
+    ]
+  }
+];
+
+// GROCERY
+const groceryCategories = [
+  {
+    title: "🌾 Dry Items",
+    subcategories: [
+      {
+        name: "Grains",
+        img: "images/rice.jpg",
+        products: [
+          { name: "Rice", price: 60, img: "images/rice.jpg" },
+          { name: "Wheat", price: 50, img: "images/wheat.jpg" },
+          { name: "Dal", price: 120, img: "images/dal.jpg" }
+        ]
+      }
+    ]
+  },
+  {
+    title: "🥬 Fresh / Wet",
+    subcategories: [
+      {
+        name: "Vegetables",
+        img: "images/veg.jpg",
+        products: [
+          { name: "Carrot", price: 40, img: "images/veg.jpg" },
+          { name: "Tomato", price: 30, img: "images/veg.jpg" }
+        ]
+      }
+    ]
+  }
+];
+
+// DRY FRUITS
+const dryfruitCategories = [
+  {
+    title: "🥜 Nuts",
+    subcategories: [
+      {
+        name: "Premium Nuts",
+        img: "images/almond.jpg",
+        products: [
+          { name: "Almonds", price: 700, img: "images/almond.jpg" },
+          { name: "Cashew", price: 800, img: "images/cashew.jpg" }
+        ]
+      }
+    ]
+  }
+];
+
+// GIFTS
+const giftCategories = [
+  {
+    title: "🎁 Combo Gifts",
+    subcategories: [
+      {
+        name: "Combos",
+        img: "images/choco.jpg",
+        products: [
+          { name: "Chocolate Combo", price: 499, img: "images/choco.jpg" },
+          { name: "Flower + Cake Combo", price: 899, img: "images/combo.jpg" }
+        ]
+      }
+    ]
+  }
+];
+
+// ELECTRONICS
+const electronicsCategories = [
+  {
+    title: "📱 Mobiles",
+    subcategories: [
+      {
+        name: "Phones",
+        img: "images/mobile.jpg",
+        products: [
+          { name: "Smartphone", price: 15000, img: "images/mobile.jpg" },
+          { name: "Feature Phone", price: 2000, img: "images/mobile.jpg" }
+        ]
+      }
+    ]
+  }
+];
+
+// BIRTHDAY
+const birthdayCategories = [
+  {
+    title: "🎂 Birthday Gifts",
+    subcategories: [
+      {
+        name: "Cakes",
+        img: "images/cake.jpg",
+        products: [
+          { name: "Birthday Cake", price: 600, img: "images/cake.jpg" },
+          { name: "Gift Hamper", price: 1200, img: "images/hamper.jpg" }
+        ]
+      }
+    ]
+  }
+];
 
 
-/* ================= CART ================= */
+// ================= CART =================
 
-// Load from localStorage
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+function updateCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
 
-/* ================= ADD TO CART ================= */
+  const cartCount = document.getElementById("cart-count");
+  if (cartCount) {
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    cartCount.innerText = totalQty;
+  }
+}
 
 function addToCart(name, price) {
-
   const existing = cart.find(item => item.name === name);
 
   if (existing) {
@@ -24,290 +194,176 @@ function addToCart(name, price) {
   updateCart();
 }
 
+// ================= RENDER NEW ARRIVALS =================
 
-/* ================= UPDATE CART ================= */
+function renderNewArrivals(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-function updateCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
+  let html = "";
 
-  const cartCount = document.getElementById("cart-count");
+  newArrivals.forEach(cat => {
 
-  if (cartCount) {
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartCount.innerText = totalQty;
-  }
+    html += `
+      <div class="category-section">
+        <h3>${cat.title}</h3>
+        <div class="grid">
+    `;
+
+    cat.subcategories.forEach(sub => {
+      sub.products.forEach(p => {
+
+        const safeName = p.name.replace(/'/g, "\\'");
+
+        html += `
+          <div class="card">
+            <button class="add-btn"
+              onclick="addToCart('${safeName}', ${p.price})">➕</button>
+
+            <img src="${p.img}">
+            <h4>${p.name}</h4>
+            <p>₹${p.price}</p>
+            <small>${sub.name}</small>
+          </div>
+        `;
+      });
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
 }
 
 
-/* ================= REMOVE ITEM ================= */
+// ================= RENDER SUBCATEGORIES =================
 
-function removeFromCart(name) {
-  cart = cart.filter(item => item.name !== name);
-  updateCart();
-  renderCartPage();
-}
+function renderSubCategories(data, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container || !data) return;
 
+  container.innerHTML = "";
 
-/* ================= CHANGE QUANTITY ================= */
+  data.forEach((cat, catIndex) => {
+    let html = `
+      <div class="category-section">
+        <h3>${cat.title}</h3>
+        <div class="grid">
+    `;
 
-function changeQty(name, delta) {
-  const item = cart.find(i => i.name === name);
-  if (!item) return;
+    cat.subcategories.forEach((sub, subIndex) => {
+      html += `
+        <div class="card"
+          onclick="showProducts('${containerId}', ${catIndex}, ${subIndex})">
+          <img src="${sub.img}" alt="${sub.name}">
+          <h4>${sub.name}</h4>
+          <p>View Products</p>
+        </div>
+      `;
+    });
 
-  item.qty += delta;
-
-  if (item.qty <= 0) {
-    removeFromCart(name);
-  } else {
-    updateCart();
-    renderCartPage();
-  }
-}
-
-
-/* ================= SAFE STRING ================= */
-// Prevent breaking onclick if product name has quotes
-
-function safeText(text) {
-  return text.replace(/'/g, "\\'");
-}
-
-
-/* ================= CARD TEMPLATE ================= */
-
-function createCard(product) {
-  const safeName = safeText(product.name);
-
-  return `
-    <div class="card">
-
-      <button class="add-btn"
-        onclick="addToCart('${safeName}', ${product.price})">
-        ➕
-      </button>
-
-      <img src="${product.image}" alt="${product.name}">
-      <h4>${product.name}</h4>
-      <p>₹${product.price}</p>
-
-    </div>
-  `;
-}
-
-
-/* ================= RENDER PRODUCTS ================= */
-
-function renderProducts(data) {
-
-  const productContainer = document.getElementById("product-container");
-  const categoryContainer = document.querySelector("[data-category]");
-
-  if (productContainer) productContainer.innerHTML = "";
-  if (categoryContainer) categoryContainer.innerHTML = "";
-
-  data.forEach(product => {
-
-    const card = createCard(product);
-    const category = product.category?.toLowerCase();
-
-    // INDEX PAGE
-    if (productContainer) {
-      productContainer.innerHTML += card;
-    }
-
-    // CATEGORY PAGE
-    if (categoryContainer) {
-      const pageCategory = categoryContainer.dataset.category.toLowerCase();
-
-      if (category === pageCategory) {
-        categoryContainer.innerHTML += card;
-      }
-    }
+    html += `</div></div>`;
+    container.innerHTML += html;
   });
 }
 
 
-/* ================= LOAD PRODUCTS ================= */
+// ================= SHOW PRODUCTS =================
 
-function loadProducts() {
-  fetch(API_URL)
-    .then(res => res.json())
-    .then(data => {
+function showProducts(containerId, catIndex, subIndex) {
 
-      if (!data || data.length === 0) {
-        const container =
-          document.getElementById("product-container") ||
-          document.querySelector("[data-category]");
+  let dataMap = {
+    flowersCategories: flowerCategories,
+    groceryCategories: groceryCategories,
+    dryfruitsCategories: dryfruitCategories,
+    giftsCategories: giftCategories,
+    electronicsCategories: electronicsCategories,
+    birthdayCategories: birthdayCategories
+  };
 
-        if (container) {
-          container.innerHTML = "<p>No products found</p>";
-        }
-        return;
-      }
+  const data = dataMap[containerId];
+  if (!data) return;
 
-      renderProducts(data);
-    })
-    .catch(err => {
-      console.error("PRODUCT ERROR:", err);
+  const container = document.getElementById(containerId);
+  const sub = data[catIndex].subcategories[subIndex];
 
-      const container =
-        document.getElementById("product-container") ||
-        document.querySelector("[data-category]");
+  let html = `
+    <button onclick="goBack('${containerId}')">⬅ Back</button>
+    <h3>${sub.name}</h3>
+    <div class="grid">
+  `;
 
-      if (container) {
-        container.innerHTML = "<p>Failed to load products</p>";
-      }
-    });
-}
+  sub.products.forEach(p => {
+    const safeName = p.name.replace(/'/g, "\\'");
 
-
-/* ================= CATEGORY FILTER ================= */
-
-function filterCategory(category) {
-  fetch(API_URL)
-    .then(res => res.json())
-    .then(data => {
-
-      const container = document.getElementById("product-container");
-      if (!container) return;
-
-      const filtered = data.filter(p =>
-        p.category?.toLowerCase() === category.toLowerCase()
-      );
-
-      container.innerHTML = "";
-
-      if (filtered.length === 0) {
-        container.innerHTML = "<p>No items found</p>";
-        return;
-      }
-
-      filtered.forEach(product => {
-        container.innerHTML += createCard(product);
-      });
-    });
-}
-
-
-/* ================= CART PAGE ================= */
-
-function renderCartPage() {
-  const container = document.getElementById("cart-items");
-  const totalEl = document.getElementById("total");
-
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  if (cart.length === 0) {
-    container.innerHTML = "<p>Your cart is empty 🛒</p>";
-    if (totalEl) totalEl.innerText = "";
-    return;
-  }
-
-  let total = 0;
-
-  cart.forEach(item => {
-    total += item.price * item.qty;
-
-    const safeName = safeText(item.name);
-
-    container.innerHTML += `
+    html += `
       <div class="card">
-        <h4>${item.name}</h4>
-        <p>₹${item.price}</p>
+        <button class="add-btn"
+          onclick="addToCart('${safeName}', ${p.price})">➕</button>
 
-        <div>
-          <button onclick="changeQty('${safeName}', -1)">➖</button>
-          ${item.qty}
-          <button onclick="changeQty('${safeName}', 1)">➕</button>
-        </div>
-
-        <button onclick="removeFromCart('${safeName}')">❌ Remove</button>
+        <img src="${p.img}">
+        <h4>${p.name}</h4>
+        <p>₹${p.price}</p>
       </div>
     `;
   });
 
-  if (totalEl) {
-    totalEl.innerText = "Total: ₹" + total;
-  }
+  html += `</div>`;
+  container.innerHTML = html;
 }
 
 
-/* ================= CHECKOUT ================= */
+// ================= BACK FUNCTION =================
 
-/* ================= WHATSAPP CHECKOUT ================= */
+function goBack(containerId) {
 
-function checkoutWhatsApp() {
+  const dataMap = {
+    flowersCategories: flowerCategories,
+    groceryCategories: groceryCategories,
+    dryfruitsCategories: dryfruitCategories,
+    giftsCategories: giftCategories,
+    electronicsCategories: electronicsCategories,
+    birthdayCategories: birthdayCategories
+  };
 
-  if (cart.length === 0) {
-    alert("Your cart is empty 🛒");
-    return;
-  }
-
-  let message = "🛒 *New Order - ShopMart*%0A%0A";
-
-  let total = 0;
-
-  cart.forEach(item => {
-    message += `• ${item.name} (x${item.qty}) - ₹${item.price * item.qty}%0A`;
-    total += item.price * item.qty;
-  });
-
-  message += `%0A*Total: ₹${total}*%0A`;
-  message += "%0A📦 Please confirm my order.";
-
-  // ✅ Your WhatsApp number (no + sign)
-  const phone = "919159842232";
-
-  const url = `https://wa.me/${phone}?text=${message}`;
-
-  // Open WhatsApp
-  window.open(url, "_blank");
-
-  // OPTIONAL: clear cart after checkout
-  cart = [];
-  updateCart();
-  renderCartPage();
+  renderSubCategories(dataMap[containerId], containerId);
 }
 
 
-/* ================= FOUNDERS SLIDER ================= */
-
-let currentSlide = 0;
-
-function nextSlide() {
-  const slides = document.querySelectorAll(".slide");
-
-  if (slides.length === 0) return;
-
-  slides.forEach(slide => {
-    slide.classList.remove("active", "exit");
-  });
-
-  slides[currentSlide].classList.add("exit");
-
-  currentSlide = (currentSlide + 1) % slides.length;
-
-  slides[currentSlide].classList.add("active");
-}
-
-
-/* ================= INIT ================= */
+// ================= PAGE LOAD =================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  loadProducts();
-  updateCart();
-  renderCartPage();
-
-  const slides = document.querySelectorAll(".slide");
-  if (slides.length > 0) {
-    slides[0].classList.add("active");
+  if (document.getElementById("flowersCategories")) {
+    renderSubCategories(flowerCategories, "flowersCategories");
   }
+
+  if (document.getElementById("groceryCategories")) {
+    renderSubCategories(groceryCategories, "groceryCategories");
+  }
+
+  if (document.getElementById("dryfruitsCategories")) {
+    renderSubCategories(dryfruitCategories, "dryfruitsCategories");
+  }
+
+  if (document.getElementById("giftsCategories")) {
+    renderSubCategories(giftCategories, "giftsCategories");
+  }
+
+  if (document.getElementById("electronicsCategories")) {
+    renderSubCategories(electronicsCategories, "electronicsCategories");
+  }
+
+  if (document.getElementById("birthdayCategories")) {
+    renderSubCategories(birthdayCategories, "birthdayCategories");
+  }
+  
+  
+
+  // 🔥 NEW ARRIVALS (MAIN FEATURE)
+  renderNewArrivals("new-arrivals");
+
+
+
+  updateCart();
 });
-
-
-/* ================= AUTO SLIDE ================= */
-
-setInterval(nextSlide, 4000);

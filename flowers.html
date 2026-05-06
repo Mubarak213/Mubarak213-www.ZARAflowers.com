@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flowers - ShopMart</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flowers - ShopMart</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -12,19 +12,13 @@
 <header class="header">
   <div class="logo">ShopMart</div>
 
-  <div class="actions">
-    <div class="btn">
-
-    <!-- ✅ FIXED: clickable cart -->
-    <a href="cart.html" class="btn">
-      Cart 🛒 <span id="cart-count">0</span>
-    </a>
-    
-    
-  </div>
+  <!-- Cart -->
+  <a href="cart.html" class="btn">
+    Cart 🛒 <span id="cart-count">0</span>
+  </a>
 </header>
 
-<!-- ✅ ADD THIS (Category Navigation) -->
+<!-- ================= NAVIGATION ================= -->
 <nav class="category-bar">
   <a href="index.html">🏠 Home</a>
   <a href="flowers.html">🌸 Flowers</a>
@@ -39,19 +33,23 @@
 <section class="section">
   <h2>🌸 Flowers Collection</h2>
 
-  <!-- ✅ UPDATED (Dynamic system) -->
-  <div class="grid" data-category="flowers"></div>
+  <!-- 🔥 USE THIS for subcategory structure -->
+  <div id="flowersCategories"></div>
+
+  <!-- (Optional future API section – keep hidden if not used) -->
+  <!-- <div class="category-container" data-category="flowers"></div> -->
+
 </section>
 
 <!-- ================= CONTACT BUTTONS ================= -->
 <div class="contact-buttons">
-  
+
   <a href="tel:+919159842232" class="call-btn">
     📞 Call Us
   </a>
 
-  <a href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20ShopMart" 
-     target="_blank" 
+  <a href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20flowers"
+     target="_blank"
      class="whatsapp-btn">
      💬 WhatsApp
   </a>
@@ -63,6 +61,7 @@
   © 2026 ShopMart | All Rights Reserved
 </footer>
 
+<!-- ================= SCRIPT ================= -->
 <script src="script.js"></script>
 
 </body>
