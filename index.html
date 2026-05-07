@@ -1,113 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ShopMart</title>
 
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>ShopMart</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
 <!-- ================= HEADER ================= -->
 <header class="header">
-  <div class="logo">ShopMart</div>
 
+  <!-- Logo -->
+  <div class="logo">
+    ShopMart
+  </div>
+
+  <!-- Search -->
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search products...">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search products..."
+    >
     <span>🔍</span>
   </div>
 
+  <!-- Actions -->
   <div class="actions">
-    <div class="btn">Login</div>
 
-    <!-- ✅ FIXED: clickable cart -->
+    <button class="btn">
+      Login
+    </button>
+
+    <!-- Cart -->
     <a href="cart.html" class="btn">
-      Cart 🛒 <span id="cart-count">0</span>
+      Cart 🛒
+      <span id="cart-count">0</span>
     </a>
+
   </div>
+
 </header>
 
-<!-- ================= CATEGORY ================= -->
+<!-- ================= CATEGORY BAR ================= -->
 <nav class="category-bar">
-  <a href="flowers.html">🌸 Flowers</a>
-  <a href="dryfruits.html">🥜 Dry Fruits</a>
-  <a href="grocery.html">🛒 Grocery</a>      <!-- fixed lowercase -->
-  <a href="gifts.html">🎁 Gifts</a>          <!-- fixed lowercase -->
-  <a href="birthday.html">🎂 Birthday</a>
-  <a href="electronics.html">📱 Electronics</a> <!-- fixed lowercase -->
+
+  <a href="flowers.html">
+    🌸 Flowers
+  </a>
+
+  <a href="dryfruits.html">
+    🥜 Dry Fruits
+  </a>
+
+  <a href="grocery.html">
+    🛒 Grocery
+  </a>
+
+  <a href="gifts.html">
+    🎁 Gifts
+  </a>
+
+  <a href="birthday.html">
+    🎂 Birthday
+  </a>
+
+  <a href="electronics.html">
+    📱 Electronics
+  </a>
+
 </nav>
 
 <!-- ================= BANNER ================= -->
 <section class="banner">
-  <img src="https://images.unsplash.com/photo-1528907298109-e64971adc8e5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+  <img
+    src="https://images.unsplash.com/photo-1528907298109-e64971adc8e5?q=80&w=1200&auto=format&fit=crop"
+    alt="ShopMart Banner"
+  >
+
 </section>
 
-
-<!-- ================= PRODUCTS ================= -->
+<!-- ================= NEW ARRIVALS ================= -->
 <section class="section">
+
   <h2>🌟 Latest Products</h2>
-  <div id="new-arrivals"></div>
+
+  <!-- Dynamic New Arrivals -->
+  <div id="new-arrivals" class="grid"></div>
+
 </section>
 
-<!-- ================= FLOWERS ================= -->
-<section class="section">
-  <h2>🌸 Flowers Deals</h2>
-  <!-- ✅ FIXED: dynamic system -->
-  <div class="grid" data-category="flowers"></div>
-</section>
-
-<!-- ================= DRY FRUITS ================= -->
-<section class="section">
-  <h2>🥜 Dry Fruits Offers</h2>
-  <!-- ✅ FIXED: dynamic system -->
-  <div class="grid" data-category="dryfruits"></div>
-</section>
 
 <!-- ================= CO-FOUNDERS ================= -->
 <section class="section founders-section">
+
   <h2>👨‍💼 Co-Founders</h2>
 
   <div class="slider">
 
+    <!-- Founder 1 -->
     <div class="slide active">
-      <img src="https://i.pravatar.cc/300?img=12">
+
+      <img
+        src="https://i.pravatar.cc/300?img=12"
+        alt="Rahul Sharma"
+      >
+
       <div class="info">
         <h3>Rahul Sharma</h3>
         <p>CEO & Founder of ShopMart</p>
       </div>
+
     </div>
 
+    <!-- Founder 2 -->
     <div class="slide">
-      <img src="https://i.pravatar.cc/300?img=32">
+
+      <img
+        src="https://i.pravatar.cc/300?img=32"
+        alt="Amit Verma"
+      >
+
       <div class="info">
         <h3>Amit Verma</h3>
         <p>CTO & Tech Architect</p>
       </div>
+
     </div>
 
+    <!-- Founder 3 -->
     <div class="slide">
-      <img src="https://i.pravatar.cc/300?img=45">
+
+      <img
+        src="https://i.pravatar.cc/300?img=45"
+        alt="Pooja Singh"
+      >
+
       <div class="info">
         <h3>Pooja Singh</h3>
         <p>CMO & Marketing Head</p>
       </div>
+
     </div>
 
   </div>
+
 </section>
 
 <!-- ================= CONTACT BUTTONS ================= -->
 <div class="contact-buttons">
-  
-  <a href="tel:+919159842232" class="call-btn">
+
+  <!-- Call -->
+  <a
+    href="tel:+919159842232"
+    class="call-btn"
+  >
     📞 Call Us
   </a>
 
-  <a href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20ShopMart" 
-     target="_blank" 
-     class="whatsapp-btn">
-     💬 WhatsApp
+  <!-- WhatsApp -->
+  <a
+    href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20ShopMart"
+    target="_blank"
+    class="whatsapp-btn"
+  >
+    💬 WhatsApp
   </a>
 
 </div>
@@ -117,6 +181,8 @@
   © 2026 ShopMart | All Rights Reserved
 </footer>
 
+<!-- ================= SCRIPT ================= -->
 <script src="script.js"></script>
+
 </body>
 </html>

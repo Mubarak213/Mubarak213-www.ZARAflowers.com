@@ -1,369 +1,642 @@
-// ================= NEW ARRIVALS (SEPARATE DATA) =================
+/* ================= API ================= */
 
-const newArrivals = [
-  {
-    category: "flowers",
-    title: "🌸 Flowers New Arrivals",
-    subcategories: [
-      {
-        name: "Jadai",
-        products: [
-          { name: "Jadai Premium", price: 400, img: "images/jadai.jpg" },
-          { name: "Jadai Deluxe", price: 600, img: "images/jadai.jpg" }
-        ]
-      }
-    ]
-  },
-  {
-    category: "grocery",
-    title: "🛒 Grocery New Arrivals",
-    subcategories: [
-      {
-        name: "Oils",
-        products: [
-          { name: "Olive Oil", price: 250, img: "images/oil.jpg" },
-          { name: "Groundnut Oil", price: 180, img: "images/oil.jpg" }
-        ]
-      }
-    ]
-  },
-  {
-    category: "dryfruits",
-    title: "🥜 Dry Fruits New Arrivals",
-    subcategories: [
-      {
-        name: "Premium Nuts",
-        products: [
-          { name: "Imported Almonds", price: 900, img: "images/almond.jpg" }
-        ]
-      }
-    ]
-  }
-];
+const API_URL =
+  "https://opensheet.elk.sh/1SzJ6PfHvEEJSkRN-Ne5uEVmOLrbst0OfdyPqVwRzkO8/Sheet2";
 
-// ================= CATEGORY DATA =================
+/* ================= STORAGE ================= */
 
-// FLOWERS
-const flowerCategories = [
-  {
-    title: "👶 Baby Shower",
-    subcategories: [
-      {
-        name: "Jadai",
-        img: "images/jadai.jpg",
-        products: [
-          { name: "Jadai Small", price: 200, img: "images/jadai.jpg" },
-          { name: "Jadai Premium", price: 400, img: "images/jadai.jpg" }
-        ]
-      },
-      {
-        name: "Malai",
-        img: "images/malai.jpg",
-        products: [
-          { name: "Rose Malai", price: 300, img: "images/malai.jpg" },
-          { name: "Jasmine Malai", price: 350, img: "images/malai.jpg" }
-        ]
-      }
-    ]
-  }
-];
+let categoryData = {};
+let newArrivalData = [];
 
-// GROCERY
-const groceryCategories = [
-  {
-    title: "🌾 Dry Items",
-    subcategories: [
-      {
-        name: "Grains",
-        img: "images/rice.jpg",
-        products: [
-          { name: "Rice", price: 60, img: "images/rice.jpg" },
-          { name: "Wheat", price: 50, img: "images/wheat.jpg" },
-          { name: "Dal", price: 120, img: "images/dal.jpg" }
-        ]
-      }
-    ]
-  },
-  {
-    title: "🥬 Fresh / Wet",
-    subcategories: [
-      {
-        name: "Vegetables",
-        img: "images/veg.jpg",
-        products: [
-          { name: "Carrot", price: 40, img: "images/veg.jpg" },
-          { name: "Tomato", price: 30, img: "images/veg.jpg" }
-        ]
-      }
-    ]
-  }
-];
+let cart =
+  JSON.parse(localStorage.getItem("cart")) || [];
 
-// DRY FRUITS
-const dryfruitCategories = [
-  {
-    title: "🥜 Nuts",
-    subcategories: [
-      {
-        name: "Premium Nuts",
-        img: "images/almond.jpg",
-        products: [
-          { name: "Almonds", price: 700, img: "images/almond.jpg" },
-          { name: "Cashew", price: 800, img: "images/cashew.jpg" }
-        ]
-      }
-    ]
-  }
-];
+/* ================= FETCH DATA ================= */
 
-// GIFTS
-const giftCategories = [
-  {
-    title: "🎁 Combo Gifts",
-    subcategories: [
-      {
-        name: "Combos",
-        img: "images/choco.jpg",
-        products: [
-          { name: "Chocolate Combo", price: 499, img: "images/choco.jpg" },
-          { name: "Flower + Cake Combo", price: 899, img: "images/combo.jpg" }
-        ]
-      }
-    ]
-  }
-];
+async function fetchSheetData() {
 
-// ELECTRONICS
-const electronicsCategories = [
-  {
-    title: "📱 Mobiles",
-    subcategories: [
-      {
-        name: "Phones",
-        img: "images/mobile.jpg",
-        products: [
-          { name: "Smartphone", price: 15000, img: "images/mobile.jpg" },
-          { name: "Feature Phone", price: 2000, img: "images/mobile.jpg" }
-        ]
-      }
-    ]
-  }
-];
+  try {
 
-// BIRTHDAY
-const birthdayCategories = [
-  {
-    title: "🎂 Birthday Gifts",
-    subcategories: [
-      {
-        name: "Cakes",
-        img: "images/cake.jpg",
-        products: [
-          { name: "Birthday Cake", price: 600, img: "images/cake.jpg" },
-          { name: "Gift Hamper", price: 1200, img: "images/hamper.jpg" }
-        ]
-      }
-    ]
-  }
-];
+    const response = await fetch(API_URL);
 
+    const rows = await response.json();
 
-// ================= CART =================
+    console.log("SHEET DATA:", rows);
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    processSheetData(rows);
 
-function updateCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
+  } catch (error) {
 
-  const cartCount = document.getElementById("cart-count");
-  if (cartCount) {
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartCount.innerText = totalQty;
+    console.error("FETCH ERROR:", error);
   }
 }
 
-function addToCart(name, price) {
-  const existing = cart.find(item => item.name === name);
+/* ================= GOOGLE DRIVE IMAGE ================= */
 
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ name, price, qty: 1 });
+function convertDriveImage(url) {
+
+  if (!url) {
+    return "images/no-image.jpg";
   }
 
-  updateCart();
+  if (url.includes("drive.google.com")) {
+
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+
+    if (match && match[1]) {
+
+      return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+    }
+  }
+
+  return url;
 }
 
-// ================= RENDER NEW ARRIVALS =================
+/* ================= PROCESS DATA ================= */
 
-function renderNewArrivals(containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
+function processSheetData(rows) {
+
+  categoryData = {};
+  newArrivalData = [];
+
+  rows.forEach(row => {
+
+    const type =
+      (row.type || "").trim().toLowerCase();
+
+    const mainCategory =
+      (row.main_category || "").trim().toLowerCase();
+
+    const categoryTitle =
+      (row.category_title || "").trim();
+
+    const subCategory =
+      (row.sub_category || "").trim();
+
+    const image =
+      convertDriveImage(row.image);
+
+    const product = {
+      name: row.product_name || "No Name",
+      price: Number(row.price) || 0,
+      img: image
+    };
+
+    if (!mainCategory || !subCategory) return;
+
+    /* ================= NEW ARRIVAL ================= */
+
+    if (type === "new_arrival") {
+
+      let main =
+        newArrivalData.find(
+          item => item.category === mainCategory
+        );
+
+      if (!main) {
+
+        main = {
+          category: mainCategory,
+          title: categoryTitle,
+          subcategories: []
+        };
+
+        newArrivalData.push(main);
+      }
+
+      let sub =
+        main.subcategories.find(
+          item => item.name === subCategory
+        );
+
+      if (!sub) {
+
+        sub = {
+          name: subCategory,
+          img: image,
+          products: []
+        };
+
+        main.subcategories.push(sub);
+      }
+
+      sub.products.push(product);
+    }
+
+    /* ================= NORMAL CATEGORY ================= */
+
+    else {
+
+      if (!categoryData[mainCategory]) {
+        categoryData[mainCategory] = [];
+      }
+
+      let category =
+        categoryData[mainCategory].find(
+          item => item.title === categoryTitle
+        );
+
+      if (!category) {
+
+        category = {
+          title: categoryTitle,
+          subcategories: []
+        };
+
+        categoryData[mainCategory].push(category);
+      }
+
+      let sub =
+        category.subcategories.find(
+          item => item.name === subCategory
+        );
+
+      if (!sub) {
+
+        sub = {
+          name: subCategory,
+          img: image,
+          products: []
+        };
+
+        category.subcategories.push(sub);
+      }
+
+      sub.products.push(product);
+    }
+  });
+
+  console.log("CATEGORY DATA:", categoryData);
+  console.log("NEW ARRIVALS:", newArrivalData);
+
+  loadPageData();
+}
+
+/* ================= RENDER SUBCATEGORIES ================= */
+
+function renderSubCategories(data, containerId) {
+
+  const container =
+    document.getElementById(containerId);
+
+  if (!container || !data || data.length === 0) {
+
+    if (container) {
+      container.innerHTML = "<p>No products found</p>";
+    }
+
+    return;
+  }
 
   let html = "";
 
-  newArrivals.forEach(cat => {
+  data.forEach((cat, catIndex) => {
 
     html += `
       <div class="category-section">
+
         <h3>${cat.title}</h3>
+
         <div class="grid">
     `;
 
-    cat.subcategories.forEach(sub => {
-      sub.products.forEach(p => {
+    cat.subcategories.forEach((sub, subIndex) => {
 
-        const safeName = p.name.replace(/'/g, "\\'");
+      html += `
+        <div class="card"
+          onclick="showProducts('${containerId}', ${catIndex}, ${subIndex})">
 
-        html += `
-          <div class="card">
-            <button class="add-btn"
-              onclick="addToCart('${safeName}', ${p.price})">➕</button>
+          <img src="${sub.img}" alt="${sub.name}">
 
-            <img src="${p.img}">
-            <h4>${p.name}</h4>
-            <p>₹${p.price}</p>
-            <small>${sub.name}</small>
-          </div>
-        `;
-      });
+          <h4>${sub.name}</h4>
+
+          <p>View Products</p>
+
+        </div>
+      `;
     });
 
-    html += `</div></div>`;
+    html += `
+        </div>
+      </div>
+    `;
   });
 
   container.innerHTML = html;
 }
 
-
-// ================= RENDER SUBCATEGORIES =================
-
-function renderSubCategories(data, containerId) {
-  const container = document.getElementById(containerId);
-  if (!container || !data) return;
-
-  container.innerHTML = "";
-
-  data.forEach((cat, catIndex) => {
-    let html = `
-      <div class="category-section">
-        <h3>${cat.title}</h3>
-        <div class="grid">
-    `;
-
-    cat.subcategories.forEach((sub, subIndex) => {
-      html += `
-        <div class="card"
-          onclick="showProducts('${containerId}', ${catIndex}, ${subIndex})">
-          <img src="${sub.img}" alt="${sub.name}">
-          <h4>${sub.name}</h4>
-          <p>View Products</p>
-        </div>
-      `;
-    });
-
-    html += `</div></div>`;
-    container.innerHTML += html;
-  });
-}
-
-
-// ================= SHOW PRODUCTS =================
+/* ================= SHOW PRODUCTS ================= */
 
 function showProducts(containerId, catIndex, subIndex) {
 
-  let dataMap = {
-    flowersCategories: flowerCategories,
-    groceryCategories: groceryCategories,
-    dryfruitsCategories: dryfruitCategories,
-    giftsCategories: giftCategories,
-    electronicsCategories: electronicsCategories,
-    birthdayCategories: birthdayCategories
+  const dataMap = {
+
+    flowersCategories:
+      categoryData["flowers"],
+
+    groceryCategories:
+      categoryData["grocery"],
+
+    dryfruitsCategories:
+      categoryData["dryfruits"],
+
+    giftsCategories:
+      categoryData["gifts"],
+
+    electronicsCategories:
+      categoryData["electronics"],
+
+    birthdayCategories:
+      categoryData["birthday"]
   };
 
   const data = dataMap[containerId];
+
   if (!data) return;
 
-  const container = document.getElementById(containerId);
-  const sub = data[catIndex].subcategories[subIndex];
+  const sub =
+    data[catIndex].subcategories[subIndex];
+
+  const container =
+    document.getElementById(containerId);
 
   let html = `
-    <button onclick="goBack('${containerId}')">⬅ Back</button>
+    <button class="back-btn"
+      onclick="goBack('${containerId}')">
+      ⬅ Back
+    </button>
+
     <h3>${sub.name}</h3>
+
     <div class="grid">
   `;
 
   sub.products.forEach(p => {
-    const safeName = p.name.replace(/'/g, "\\'");
+
+    const safeName =
+      p.name.replace(/'/g, "\\'");
 
     html += `
       <div class="card">
-        <button class="add-btn"
-          onclick="addToCart('${safeName}', ${p.price})">➕</button>
 
-        <img src="${p.img}">
+        <button class="add-btn"
+          onclick="event.stopPropagation(); addToCart('${safeName}', ${p.price}, '${p.img}')">
+          ➕
+        </button>
+
+        <img src="${p.img}" alt="${p.name}">
+
         <h4>${p.name}</h4>
+
         <p>₹${p.price}</p>
+
       </div>
     `;
   });
 
   html += `</div>`;
+
   container.innerHTML = html;
 }
 
-
-// ================= BACK FUNCTION =================
+/* ================= GO BACK ================= */
 
 function goBack(containerId) {
 
-  const dataMap = {
-    flowersCategories: flowerCategories,
-    groceryCategories: groceryCategories,
-    dryfruitsCategories: dryfruitCategories,
-    giftsCategories: giftCategories,
-    electronicsCategories: electronicsCategories,
-    birthdayCategories: birthdayCategories
+  const map = {
+
+    flowersCategories:
+      categoryData["flowers"],
+
+    groceryCategories:
+      categoryData["grocery"],
+
+    dryfruitsCategories:
+      categoryData["dryfruits"],
+
+    giftsCategories:
+      categoryData["gifts"],
+
+    electronicsCategories:
+      categoryData["electronics"],
+
+    birthdayCategories:
+      categoryData["birthday"]
   };
 
-  renderSubCategories(dataMap[containerId], containerId);
+  renderSubCategories(
+    map[containerId],
+    containerId
+  );
 }
 
+/* ================= NEW ARRIVALS ================= */
 
-// ================= PAGE LOAD =================
+function renderNewArrivals() {
 
-document.addEventListener("DOMContentLoaded", () => {
+  const container =
+    document.getElementById("new-arrivals");
 
-  if (document.getElementById("flowersCategories")) {
-    renderSubCategories(flowerCategories, "flowersCategories");
+  if (!container) return;
+
+  let html = "";
+
+  newArrivalData.forEach(cat => {
+
+    html += `
+      <div class="category-section">
+
+        <h3>${cat.title}</h3>
+
+        <div class="grid">
+    `;
+
+    cat.subcategories.forEach(sub => {
+
+      sub.products.forEach(p => {
+
+        const safeName =
+          p.name.replace(/'/g, "\\'");
+
+        html += `
+          <div class="card">
+
+            <button class="add-btn"
+              onclick="addToCart('${safeName}', ${p.price}, '${p.img}')">
+              ➕
+            </button>
+
+            <img src="${p.img}" alt="${p.name}">
+
+            <h4>${p.name}</h4>
+
+            <p>₹${p.price}</p>
+
+            <small>${sub.name}</small>
+
+          </div>
+        `;
+      });
+    });
+
+    html += `
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+/* ================= CART ================= */
+
+function updateCart() {
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+  const cartCount =
+    document.getElementById("cart-count");
+
+  if (cartCount) {
+
+    const totalQty =
+      cart.reduce(
+        (sum, item) => sum + item.qty,
+        0
+      );
+
+    cartCount.innerText = totalQty;
   }
+}
 
-  if (document.getElementById("groceryCategories")) {
-    renderSubCategories(groceryCategories, "groceryCategories");
+function addToCart(name, price, img = "") {
+
+  const existing =
+    cart.find(item => item.name === name);
+
+  if (existing) {
+
+    existing.qty += 1;
+
+  } else {
+
+    cart.push({
+      name,
+      price,
+      img,
+      qty: 1
+    });
   }
-
-  if (document.getElementById("dryfruitsCategories")) {
-    renderSubCategories(dryfruitCategories, "dryfruitsCategories");
-  }
-
-  if (document.getElementById("giftsCategories")) {
-    renderSubCategories(giftCategories, "giftsCategories");
-  }
-
-  if (document.getElementById("electronicsCategories")) {
-    renderSubCategories(electronicsCategories, "electronicsCategories");
-  }
-
-  if (document.getElementById("birthdayCategories")) {
-    renderSubCategories(birthdayCategories, "birthdayCategories");
-  }
-  
-  
-
-  // 🔥 NEW ARRIVALS (MAIN FEATURE)
-  renderNewArrivals("new-arrivals");
-
-
 
   updateCart();
-});
+
+  alert(name + " added to cart");
+}
+
+/* ================= CART PAGE ================= */
+
+function renderCartPage() {
+
+  const container =
+    document.getElementById("cart-items");
+
+  const totalDiv =
+    document.getElementById("total");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (cart.length === 0) {
+
+    container.innerHTML =
+      "<h3>Your cart is empty</h3>";
+
+    if (totalDiv) {
+      totalDiv.innerHTML = "";
+    }
+
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+
+    const subtotal =
+      item.price * item.qty;
+
+    total += subtotal;
+
+    container.innerHTML += `
+
+      <div class="card cart-card">
+
+        <img
+          src="${item.img || 'images/no-image.jpg'}"
+          alt="${item.name}"
+        >
+
+        <h4>${item.name}</h4>
+
+        <p>₹${item.price}</p>
+
+        <div class="qty-box">
+
+          <button
+            onclick="changeQty(${index}, 'minus')">
+            ➖
+          </button>
+
+          <span>${item.qty}</span>
+
+          <button
+            onclick="changeQty(${index}, 'plus')">
+            ➕
+          </button>
+
+        </div>
+
+        <p>Subtotal: ₹${subtotal}</p>
+
+        <button
+          class="remove-btn"
+          onclick="removeFromCart(${index})">
+          ❌ Remove
+        </button>
+
+      </div>
+    `;
+  });
+
+  if (totalDiv) {
+
+    totalDiv.innerHTML =
+      `Total Amount: ₹${total}`;
+  }
+}
+
+function removeFromCart(index) {
+
+  cart.splice(index, 1);
+
+  updateCart();
+
+  renderCartPage();
+}
+
+function changeQty(index, action) {
+
+  if (action === "plus") {
+    cart[index].qty += 1;
+  }
+
+  if (action === "minus") {
+
+    cart[index].qty -= 1;
+
+    if (cart[index].qty <= 0) {
+      cart.splice(index, 1);
+    }
+  }
+
+  updateCart();
+
+  renderCartPage();
+}
+
+/* ================= WHATSAPP ================= */
+
+function checkoutWhatsApp() {
+
+  if (cart.length === 0) {
+
+    alert("Cart is empty");
+
+    return;
+  }
+
+  let message =
+    "🛒 *ShopMart Order* %0A%0A";
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    const subtotal =
+      item.price * item.qty;
+
+    total += subtotal;
+
+    message +=
+      `📦 ${item.name}%0A` +
+      `Qty: ${item.qty}%0A` +
+      `Price: ₹${item.price}%0A` +
+      `Subtotal: ₹${subtotal}%0A%0A`;
+  });
+
+  message += `💰 Total: ₹${total}`;
+
+  window.open(
+    `https://wa.me/919159842232?text=${message}`,
+    "_blank"
+  );
+}
+
+/* ================= LOAD PAGE ================= */
+
+function loadPageData() {
+
+  renderSubCategories(
+    categoryData["flowers"],
+    "flowersCategories"
+  );
+
+  renderSubCategories(
+    categoryData["grocery"],
+    "groceryCategories"
+  );
+
+  renderSubCategories(
+    categoryData["dryfruits"],
+    "dryfruitsCategories"
+  );
+
+  renderSubCategories(
+    categoryData["gifts"],
+    "giftsCategories"
+  );
+
+  renderSubCategories(
+    categoryData["electronics"],
+    "electronicsCategories"
+  );
+
+  renderSubCategories(
+    categoryData["birthday"],
+    "birthdayCategories"
+  );
+
+  renderNewArrivals();
+
+  renderCartPage();
+
+  updateCart();
+}
+
+/* ================= START ================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    updateCart();
+
+    renderCartPage();
+
+    fetchSheetData();
+  }
+);
