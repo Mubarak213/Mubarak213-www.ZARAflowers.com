@@ -1,82 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart - ShopMart</title>
-<link rel="stylesheet" href="style.css">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cart - ShopMart</title>
+
+  <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-  <div class="logo">ShopMart</div>
+  <!-- ================= HEADER ================= -->
 
-  <div class="actions">
-    <a href="index.html" class="btn">🏠 Home</a>
+  <header class="header">
 
-    <a href="cart.html" class="btn">
-  Cart 🛒 <span id="cart-count">0</span>
-</a>
+    <div class="logo">
+      ShopMart
+    </div>
+
+    <div class="actions">
+
+      <a href="index.html" class="btn">
+        🏠 Home
+      </a>
+
+      <a href="cart.html" class="btn">
+        Cart 🛒
+        <span id="cart-count">0</span>
+      </a>
+
+    </div>
+
+  </header>
+
+  <!-- ================= CATEGORY BAR ================= -->
+
+  <nav class="category-bar">
+
+    <a href="flowers.html">🌸 Flowers</a>
+
+    <a href="dryfruits.html">🥜 Dry Fruits</a>
+
+    <a href="grocery.html">🛒 Grocery</a>
+
+    <a href="gifts.html">🎁 Gifts</a>
+
+    <a href="birthday.html">🎂 Birthday</a>
+
+    <a href="electronics.html">📱 Electronics</a>
+
+  </nav>
+
+  <!-- ================= CART SECTION ================= -->
+
+  <section class="section">
+
+    <h2>🛒 Your Cart</h2>
+
+    <!-- CART ITEMS -->
+    <div id="cart-items" class="cart-container"></div>
+
+    <!-- TOTAL -->
+    <h3 id="cart-total" class="cart-total"></h3>
+
+    <!-- CHECKOUT -->
+    <button
+      onclick="checkoutWhatsApp()"
+      class="checkout-btn"
+    >
+      ✅ Checkout via WhatsApp
+    </button>
+
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+
+  <div class="contact-buttons">
+
+    <a
+      href="tel:+919159842232"
+      class="call-btn"
+    >
+      📞 Call Us
+    </a>
+
+    <a
+      href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20ShopMart"
+      target="_blank"
+      class="whatsapp-btn"
+    >
+      💬 WhatsApp
+    </a>
+
   </div>
-</header>
 
-<!-- ================= CATEGORY NAV ================= -->
-<nav class="category-bar">
-  <a href="index.html">🏠 Home</a>
-  <a href="flowers.html">🌸 Flowers</a>
-  <a href="dryfruits.html">🥜 Dry Fruits</a>
-  <a href="grocery.html">🛒 Grocery</a>
-  <a href="gifts.html">🎁 Gifts</a>
-  <a href="birthday.html">🎂 Birthday</a>
-  <a href="electronics.html">📱 Electronics</a>
-</nav>
+  <!-- ================= FOOTER ================= -->
 
-<!-- ================= CART SECTION ================= -->
-<section class="section">
-  <h2>🛒 Your Cart</h2>
+  <footer>
+    © 2026 ShopMart | All Rights Reserved
+  </footer>
 
-  <!-- CART ITEMS -->
-  <div id="cart-items" class="grid"></div>
+  <!-- ================= SCRIPT ================= -->
 
-  <!-- TOTAL -->
-  <h3 id="total" style="margin-top:20px;"></h3>
+  <script src="script.js"></script>
 
-  <!-- ✅ FIXED BUTTON -->
-  <button onclick="checkoutWhatsApp()" class="checkout-btn">
-    ✅ Checkout via WhatsApp
-  </button>
-</section>
+  <script>
 
-<!-- ================= CONTACT BUTTONS ================= -->
-<div class="contact-buttons">
-  
-  <a href="tel:+919159842232" class="call-btn">
-    📞 Call Us
-  </a>
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
 
-  <a href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20ShopMart" 
-     target="_blank" 
-     class="whatsapp-btn">
-     💬 WhatsApp
-  </a>
+        updateCart();
 
-</div>
+        renderCartPage();
+      }
+    );
 
-<!-- ================= FOOTER ================= -->
-<footer>
-  © 2026 ShopMart | All Rights Reserved
-</footer>
-
-<!-- ================= SCRIPT ================= -->
-<script src="script.js"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    renderCartPage();
-    updateCart();
-  });
-</script>
+  </script>
 
 </body>
+
 </html>

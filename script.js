@@ -12,14 +12,6 @@ let cart =
   JSON.parse(localStorage.getItem("cart")) || [];
 
 /* ================= SUBCATEGORY IMAGES ================= */
-/*
-FORMAT:
-
-mainCategory -> categoryTitle -> subCategory
-
-Example:
-flowers -> 👶 Baby Shower -> Jadai
-*/
 
 const subCategoryImages = {
 
@@ -28,59 +20,49 @@ const subCategoryImages = {
     "👶 baby shower": {
 
       jadai:
-        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
 
-       decoration:
-        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+      decoration:
+        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
 
       malai:
-        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
     },
 
- "👶  Puberty": {
+    "👶 puberty": {
 
       jadai:
         "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
 
-       decoration:
-        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+      decoration:
+        "https://drive.google.com/thumbnail?id=1qFuBCaizn8WenvWPKnNTr4W9VORsxgB-&sz=w1000",
 
       malai:
         "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
     },
 
+    "👶 house warming": {
+
+      jadai:
+        "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
+
+      decoration:
+        "https://drive.google.com/thumbnail?id=1XOVsn3ENf-rMpfi5DfQ7h68bfC1y9ptf&sz=w1000",
+
+      malai:
+        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+    },
 
     "💍 engagement": {
 
       malai:
-        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+        "https://drive.google.com/thumbnail?id=1s6-LDMmFgDxpELMtEC85huzXgDWnHj3v&sz=w1000",
 
       decoration:
-        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+        "https://drive.google.com/thumbnail?id=1qFuBCaizn8WenvWPKnNTr4W9VORsxgB-&sz=w1000",
 
       jadai:
-        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000"
-    }
-  },
-
-  grocery: {
-
-    "🌾 dry items": {
-
-      grains:
-        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
-
-      oils:
-        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
-    }
-  },
-
-  dryfruits: {
-
-    "🌾 dry items": {
-
-      guni:
-        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+        "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     }
   }
 };
@@ -96,8 +78,6 @@ async function fetchSheetData() {
 
     const rows =
       await response.json();
-
-    console.log("SHEET:", rows);
 
     processSheetData(rows);
 
@@ -263,10 +243,6 @@ function processSheetData(rows) {
       sub.products.push(product);
     }
   });
-
-  console.log("CATEGORY DATA:", categoryData);
-
-  console.log("NEW ARRIVAL DATA:", newArrivalData);
 
   loadPageData();
 }
@@ -566,12 +542,12 @@ function updateCart() {
   }
 }
 
+/* ================= ADD TO CART ================= */
+
 function addToCart(name, price, img = "") {
 
   const existing =
-    cart.find(
-      item => item.name === name
-    );
+    cart.find(item => item.name === name);
 
   if (existing) {
 
@@ -590,7 +566,207 @@ function addToCart(name, price, img = "") {
 
   updateCart();
 
+  renderCartPage();
+
   alert(name + " added to cart");
+}
+
+/* ================= RENDER CART PAGE ================= */
+
+
+/* ================= RENDER CART PAGE ================= */
+
+function renderCartPage() {
+
+  const container =
+    document.getElementById("cart-items");
+
+  const totalDiv =
+    document.getElementById("cart-total");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (cart.length === 0) {
+
+    container.innerHTML = `
+
+      <div class="empty-cart">
+
+        <h3>🛒 Your cart is empty</h3>
+
+        <a href="index.html" class="btn">
+          Continue Shopping
+        </a>
+
+      </div>
+
+    `;
+
+    if (totalDiv) {
+
+      totalDiv.innerHTML = "";
+    }
+
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+
+    const subtotal =
+      item.price * item.qty;
+
+    total += subtotal;
+
+    container.innerHTML += `
+
+      <div class="card cart-card">
+
+        <img
+          src="${item.img}"
+          alt="${item.name}"
+          onerror="this.src='images/no-image.jpg'"
+        >
+
+        <div class="cart-info">
+
+          <h3>${item.name}</h3>
+
+          <p>Price: ₹${item.price}</p>
+
+          <div class="qty-controls">
+
+            <button
+              onclick="changeQty(${index}, 'minus')"
+            >
+              ➖
+            </button>
+
+            <span>${item.qty}</span>
+
+            <button
+              onclick="changeQty(${index}, 'plus')"
+            >
+              ➕
+            </button>
+
+          </div>
+
+          <h4>
+            Total: ₹${subtotal}
+          </h4>
+
+          <button
+            class="remove-btn"
+            onclick="removeFromCart(${index})"
+          >
+            Remove
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+  });
+
+  if (totalDiv) {
+
+    totalDiv.innerHTML = `
+      Grand Total : ₹${total}
+    `;
+  }
+}
+
+/* ================= CHANGE QUANTITY ================= */
+
+function changeQty(index, action) {
+
+  if (action === "plus") {
+
+    cart[index].qty += 1;
+  }
+
+  if (action === "minus") {
+
+    cart[index].qty -= 1;
+
+    if (cart[index].qty <= 0) {
+
+      cart.splice(index, 1);
+    }
+  }
+
+  updateCart();
+
+  renderCartPage();
+}
+
+/* ================= REMOVE ITEM ================= */
+
+function removeFromCart(index) {
+
+  cart.splice(index, 1);
+
+  updateCart();
+
+  renderCartPage();
+}
+
+/* ================= WHATSAPP CHECKOUT ================= */
+
+function checkoutWhatsApp() {
+
+  if (cart.length === 0) {
+
+    alert("Your cart is empty");
+
+    return;
+  }
+
+  let message =
+    "🛒 *New Order*%0A%0A";
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    const subtotal =
+      item.price * item.qty;
+
+    total += subtotal;
+
+    message +=
+      `📦 Product: ${item.name}%0A` +
+      `Qty: ${item.qty}%0A` +
+      `Price: ₹${item.price}%0A` +
+      `Subtotal: ₹${subtotal}%0A%0A`;
+  });
+
+  message +=
+    `💰 Total Amount: ₹${total}`;
+
+  const phone =
+    "919159842232";
+
+  window.open(
+    `https://wa.me/${phone}?text=${message}`,
+    "_blank"
+  );
+
+  /* CLEAR CART */
+  cart = [];
+
+  localStorage.removeItem("cart");
+
+  updateCart();
+
+  renderCartPage();
+
+  alert("Order placed successfully!");
 }
 
 /* ================= LOAD PAGE ================= */
@@ -602,34 +778,11 @@ function loadPageData() {
     "flowersCategories"
   );
 
-  renderSubCategories(
-    categoryData["grocery"],
-    "groceryCategories"
-  );
-
-  renderSubCategories(
-    categoryData["dryfruits"],
-    "dryfruitsCategories"
-  );
-
-  renderSubCategories(
-    categoryData["gifts"],
-    "giftsCategories"
-  );
-
-  renderSubCategories(
-    categoryData["electronics"],
-    "electronicsCategories"
-  );
-
-  renderSubCategories(
-    categoryData["birthday"],
-    "birthdayCategories"
-  );
-
   renderNewArrivals();
 
   updateCart();
+
+  renderCartPage();
 }
 
 /* ================= START ================= */
@@ -639,6 +792,8 @@ document.addEventListener(
   () => {
 
     updateCart();
+
+    renderCartPage();
 
     fetchSheetData();
   }
