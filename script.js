@@ -11,23 +11,75 @@ let newArrivalData = [];
 let cart =
   JSON.parse(localStorage.getItem("cart")) || [];
 
+/* ================= SUBCATEGORY IMAGES ================= */
+
+const subCategoryImages = {
+
+  flowers: {
+
+    jadai:
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+
+    malai:
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+  },
+
+  grocery: {
+
+    grains:
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+
+    oils:
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+  },
+
+  dryfruits: {
+
+    guni:
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+  },
+
+  gifts: {
+
+    "gift combo":
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+  },
+
+  birthday: {
+
+    "birthday garland":
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+  },
+
+  electronics: {
+
+    mobiles:
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+
+    gadgets:
+      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+  }
+};
+
 /* ================= FETCH DATA ================= */
 
 async function fetchSheetData() {
 
   try {
 
-    const response = await fetch(API_URL);
+    const response =
+      await fetch(API_URL);
 
-    const rows = await response.json();
+    const rows =
+      await response.json();
 
-    console.log("SHEET DATA:", rows);
+    console.log(rows);
 
     processSheetData(rows);
 
   } catch (error) {
 
-    console.error("FETCH ERROR:", error);
+    console.error(error);
   }
 }
 
@@ -36,12 +88,14 @@ async function fetchSheetData() {
 function convertDriveImage(url) {
 
   if (!url) {
+
     return "images/no-image.jpg";
   }
 
   if (url.includes("drive.google.com")) {
 
-    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    const match =
+      url.match(/\/d\/([a-zA-Z0-9_-]+)/);
 
     if (match && match[1]) {
 
@@ -62,24 +116,36 @@ function processSheetData(rows) {
   rows.forEach(row => {
 
     const type =
-      (row.type || "").trim().toLowerCase();
+      (row.type || "")
+        .trim()
+        .toLowerCase();
 
     const mainCategory =
-      (row.main_category || "").trim().toLowerCase();
+      (row.main_category || "")
+        .trim()
+        .toLowerCase();
 
     const categoryTitle =
-      (row.category_title || "").trim();
+      (row.category_title || "")
+        .trim();
 
     const subCategory =
-      (row.sub_category || "").trim();
+      (row.sub_category || "")
+        .trim();
 
     const image =
       convertDriveImage(row.image);
 
     const product = {
-      name: row.product_name || "No Name",
-      price: Number(row.price) || 0,
-      img: image
+
+      name:
+        row.product_name || "No Name",
+
+      price:
+        Number(row.price) || 0,
+
+      img:
+        image
     };
 
     if (!mainCategory || !subCategory) return;
@@ -96,8 +162,11 @@ function processSheetData(rows) {
       if (!main) {
 
         main = {
+
           category: mainCategory,
+
           title: categoryTitle,
+
           subcategories: []
         };
 
@@ -112,8 +181,9 @@ function processSheetData(rows) {
       if (!sub) {
 
         sub = {
+
           name: subCategory,
-          img: image,
+
           products: []
         };
 
@@ -128,6 +198,7 @@ function processSheetData(rows) {
     else {
 
       if (!categoryData[mainCategory]) {
+
         categoryData[mainCategory] = [];
       }
 
@@ -139,7 +210,9 @@ function processSheetData(rows) {
       if (!category) {
 
         category = {
+
           title: categoryTitle,
+
           subcategories: []
         };
 
@@ -154,8 +227,9 @@ function processSheetData(rows) {
       if (!sub) {
 
         sub = {
+
           name: subCategory,
-          img: image,
+
           products: []
         };
 
@@ -167,6 +241,7 @@ function processSheetData(rows) {
   });
 
   console.log("CATEGORY DATA:", categoryData);
+
   console.log("NEW ARRIVALS:", newArrivalData);
 
   loadPageData();
@@ -179,38 +254,52 @@ function renderSubCategories(data, containerId) {
   const container =
     document.getElementById(containerId);
 
-  if (!container || !data || data.length === 0) {
-
-    if (container) {
-      container.innerHTML = "<p>No products found</p>";
-    }
-
-    return;
-  }
+  if (!container || !data) return;
 
   let html = "";
 
   data.forEach((cat, catIndex) => {
 
     html += `
+
       <div class="category-section">
 
-        <h3>${cat.title}</h3>
+        <h2>${cat.title}</h2>
 
         <div class="grid">
     `;
 
     cat.subcategories.forEach((sub, subIndex) => {
 
+      const mainCategory =
+        containerId
+          .replace("Categories", "")
+          .trim()
+          .toLowerCase();
+
+      const subName =
+        sub.name
+          .trim()
+          .toLowerCase();
+
+      const image =
+        subCategoryImages[mainCategory]?.[subName]
+        || "images/no-image.jpg";
+
       html += `
-        <div class="card"
+
+        <div class="card subcategory-card"
           onclick="showProducts('${containerId}', ${catIndex}, ${subIndex})">
 
-          <img src="${sub.img}" alt="${sub.name}">
+          <img
+            src="${image}"
+            alt="${sub.name}"
+            onerror="this.src='images/no-image.jpg'"
+          >
 
           <h4>${sub.name}</h4>
 
-          <p>View Products</p>
+          <p>Click to View</p>
 
         </div>
       `;
@@ -250,23 +339,28 @@ function showProducts(containerId, catIndex, subIndex) {
       categoryData["birthday"]
   };
 
-  const data = dataMap[containerId];
+  const data =
+    dataMap[containerId];
 
   if (!data) return;
 
   const sub =
-    data[catIndex].subcategories[subIndex];
+    data[catIndex]
+      .subcategories[subIndex];
 
   const container =
     document.getElementById(containerId);
 
   let html = `
+
     <button class="back-btn"
       onclick="goBack('${containerId}')">
+
       ⬅ Back
+
     </button>
 
-    <h3>${sub.name}</h3>
+    <h2>${sub.name}</h2>
 
     <div class="grid">
   `;
@@ -277,14 +371,21 @@ function showProducts(containerId, catIndex, subIndex) {
       p.name.replace(/'/g, "\\'");
 
     html += `
+
       <div class="card">
 
         <button class="add-btn"
-          onclick="event.stopPropagation(); addToCart('${safeName}', ${p.price}, '${p.img}')">
+          onclick="event.stopPropagation();
+          addToCart('${safeName}', ${p.price}, '${p.img}')">
+
           ➕
+
         </button>
 
-        <img src="${p.img}" alt="${p.name}">
+        <img
+          src="${p.img}"
+          alt="${p.name}"
+        >
 
         <h4>${p.name}</h4>
 
@@ -330,6 +431,8 @@ function goBack(containerId) {
   );
 }
 
+
+
 /* ================= NEW ARRIVALS ================= */
 
 function renderNewArrivals() {
@@ -344,11 +447,16 @@ function renderNewArrivals() {
   newArrivalData.forEach(cat => {
 
     html += `
+
       <div class="category-section">
 
-        <h3>${cat.title}</h3>
+        <!-- CATEGORY TITLE -->
+        <h2 class="new-arrival-title">
+          ${cat.title}
+        </h2>
 
-        <div class="grid">
+        <!-- PRODUCTS ROW -->
+        <div class="new-arrival-row">
     `;
 
     cat.subcategories.forEach(sub => {
@@ -359,14 +467,20 @@ function renderNewArrivals() {
           p.name.replace(/'/g, "\\'");
 
         html += `
-          <div class="card">
 
-            <button class="add-btn"
+          <div class="card new-arrival-card">
+
+            <button
+              class="add-btn"
               onclick="addToCart('${safeName}', ${p.price}, '${p.img}')">
               ➕
             </button>
 
-            <img src="${p.img}" alt="${p.name}">
+            <img
+              src="${p.img}"
+              alt="${p.name}"
+              onerror="this.src='images/no-image.jpg'"
+            >
 
             <h4>${p.name}</h4>
 
@@ -415,7 +529,9 @@ function updateCart() {
 function addToCart(name, price, img = "") {
 
   const existing =
-    cart.find(item => item.name === name);
+    cart.find(
+      item => item.name === name
+    );
 
   if (existing) {
 
@@ -424,6 +540,7 @@ function addToCart(name, price, img = "") {
   } else {
 
     cart.push({
+
       name,
       price,
       img,
@@ -434,156 +551,6 @@ function addToCart(name, price, img = "") {
   updateCart();
 
   alert(name + " added to cart");
-}
-
-/* ================= CART PAGE ================= */
-
-function renderCartPage() {
-
-  const container =
-    document.getElementById("cart-items");
-
-  const totalDiv =
-    document.getElementById("total");
-
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  if (cart.length === 0) {
-
-    container.innerHTML =
-      "<h3>Your cart is empty</h3>";
-
-    if (totalDiv) {
-      totalDiv.innerHTML = "";
-    }
-
-    return;
-  }
-
-  let total = 0;
-
-  cart.forEach((item, index) => {
-
-    const subtotal =
-      item.price * item.qty;
-
-    total += subtotal;
-
-    container.innerHTML += `
-
-      <div class="card cart-card">
-
-        <img
-          src="${item.img || 'images/no-image.jpg'}"
-          alt="${item.name}"
-        >
-
-        <h4>${item.name}</h4>
-
-        <p>₹${item.price}</p>
-
-        <div class="qty-box">
-
-          <button
-            onclick="changeQty(${index}, 'minus')">
-            ➖
-          </button>
-
-          <span>${item.qty}</span>
-
-          <button
-            onclick="changeQty(${index}, 'plus')">
-            ➕
-          </button>
-
-        </div>
-
-        <p>Subtotal: ₹${subtotal}</p>
-
-        <button
-          class="remove-btn"
-          onclick="removeFromCart(${index})">
-          ❌ Remove
-        </button>
-
-      </div>
-    `;
-  });
-
-  if (totalDiv) {
-
-    totalDiv.innerHTML =
-      `Total Amount: ₹${total}`;
-  }
-}
-
-function removeFromCart(index) {
-
-  cart.splice(index, 1);
-
-  updateCart();
-
-  renderCartPage();
-}
-
-function changeQty(index, action) {
-
-  if (action === "plus") {
-    cart[index].qty += 1;
-  }
-
-  if (action === "minus") {
-
-    cart[index].qty -= 1;
-
-    if (cart[index].qty <= 0) {
-      cart.splice(index, 1);
-    }
-  }
-
-  updateCart();
-
-  renderCartPage();
-}
-
-/* ================= WHATSAPP ================= */
-
-function checkoutWhatsApp() {
-
-  if (cart.length === 0) {
-
-    alert("Cart is empty");
-
-    return;
-  }
-
-  let message =
-    "🛒 *ShopMart Order* %0A%0A";
-
-  let total = 0;
-
-  cart.forEach(item => {
-
-    const subtotal =
-      item.price * item.qty;
-
-    total += subtotal;
-
-    message +=
-      `📦 ${item.name}%0A` +
-      `Qty: ${item.qty}%0A` +
-      `Price: ₹${item.price}%0A` +
-      `Subtotal: ₹${subtotal}%0A%0A`;
-  });
-
-  message += `💰 Total: ₹${total}`;
-
-  window.open(
-    `https://wa.me/919159842232?text=${message}`,
-    "_blank"
-  );
 }
 
 /* ================= LOAD PAGE ================= */
@@ -622,8 +589,6 @@ function loadPageData() {
 
   renderNewArrivals();
 
-  renderCartPage();
-
   updateCart();
 }
 
@@ -634,8 +599,6 @@ document.addEventListener(
   () => {
 
     updateCart();
-
-    renderCartPage();
 
     fetchSheetData();
   }

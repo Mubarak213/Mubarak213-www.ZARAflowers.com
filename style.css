@@ -49,6 +49,52 @@ body {
   background: #ffe500;
 }
 
+/* ================= NEW ARRIVALS ================= */
+
+.new-arrival-title {
+
+  margin-bottom: 15px;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+  color: #222;
+}
+
+.new-arrival-row {
+
+  display: flex;
+
+  gap: 15px;
+
+  overflow-x: auto;
+
+  padding-bottom: 10px;
+
+  scroll-behavior: smooth;
+}
+
+.new-arrival-row::-webkit-scrollbar {
+
+  height: 6px;
+}
+
+.new-arrival-row::-webkit-scrollbar-thumb {
+
+  background: #ccc;
+
+  border-radius: 10px;
+}
+
+.new-arrival-card {
+
+  min-width: 220px;
+
+  flex-shrink: 0;
+}
+
+
 /* CATEGORY */
 .category-bar {
   display: flex;
@@ -69,6 +115,22 @@ body {
 .category-bar a:hover {
   color: #2874f0;
   transform: scale(1.05);
+}
+
+.subcategory-card {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subcategory-card:hover {
+  transform: scale(1.03);
+}
+
+.subcategory-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 /* BANNER */
