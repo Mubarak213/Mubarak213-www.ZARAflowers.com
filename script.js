@@ -12,52 +12,76 @@ let cart =
   JSON.parse(localStorage.getItem("cart")) || [];
 
 /* ================= SUBCATEGORY IMAGES ================= */
+/*
+FORMAT:
+
+mainCategory -> categoryTitle -> subCategory
+
+Example:
+flowers -> 👶 Baby Shower -> Jadai
+*/
 
 const subCategoryImages = {
 
   flowers: {
 
-    jadai:
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+    "👶 baby shower": {
 
-    malai:
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+      jadai:
+        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+
+       decoration:
+        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+
+      malai:
+        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+    },
+
+ "👶  Puberty": {
+
+      jadai:
+        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+
+       decoration:
+        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+
+      malai:
+        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+    },
+
+
+    "💍 engagement": {
+
+      malai:
+        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+
+      decoration:
+        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+
+      jadai:
+        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000"
+    }
   },
 
   grocery: {
 
-    grains:
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+    "🌾 dry items": {
 
-    oils:
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+      grains:
+        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
+
+      oils:
+        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+    }
   },
 
   dryfruits: {
 
-    guni:
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
-  },
+    "🌾 dry items": {
 
-  gifts: {
-
-    "gift combo":
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
-  },
-
-  birthday: {
-
-    "birthday garland":
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
-  },
-
-  electronics: {
-
-    mobiles:
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000",
-
-    gadgets:
-      "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+      guni:
+        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+    }
   }
 };
 
@@ -73,13 +97,13 @@ async function fetchSheetData() {
     const rows =
       await response.json();
 
-    console.log(rows);
+    console.log("SHEET:", rows);
 
     processSheetData(rows);
 
   } catch (error) {
 
-    console.error(error);
+    console.error("FETCH ERROR:", error);
   }
 }
 
@@ -242,12 +266,12 @@ function processSheetData(rows) {
 
   console.log("CATEGORY DATA:", categoryData);
 
-  console.log("NEW ARRIVALS:", newArrivalData);
+  console.log("NEW ARRIVAL DATA:", newArrivalData);
 
   loadPageData();
 }
 
-/* ================= RENDER SUBCATEGORIES ================= */
+/* ================= RENDER SUB CATEGORIES ================= */
 
 function renderSubCategories(data, containerId) {
 
@@ -264,7 +288,9 @@ function renderSubCategories(data, containerId) {
 
       <div class="category-section">
 
-        <h2>${cat.title}</h2>
+        <h2 class="category-title">
+          ${cat.title}
+        </h2>
 
         <div class="grid">
     `;
@@ -277,19 +303,27 @@ function renderSubCategories(data, containerId) {
           .trim()
           .toLowerCase();
 
-      const subName =
+      const categoryKey =
+        cat.title
+          .trim()
+          .toLowerCase();
+
+      const subKey =
         sub.name
           .trim()
           .toLowerCase();
 
       const image =
-        subCategoryImages[mainCategory]?.[subName]
+        subCategoryImages?.[mainCategory]?.[categoryKey]?.[subKey]
+        || sub.products[0]?.img
         || "images/no-image.jpg";
 
       html += `
 
-        <div class="card subcategory-card"
-          onclick="showProducts('${containerId}', ${catIndex}, ${subIndex})">
+        <div
+          class="card subcategory-card"
+          onclick="showProducts('${containerId}', ${catIndex}, ${subIndex})"
+        >
 
           <img
             src="${image}"
@@ -297,9 +331,13 @@ function renderSubCategories(data, containerId) {
             onerror="this.src='images/no-image.jpg'"
           >
 
-          <h4>${sub.name}</h4>
+          <div class="subcategory-info">
 
-          <p>Click to View</p>
+            <h4>${sub.name}</h4>
+
+            <p>Click to View</p>
+
+          </div>
 
         </div>
       `;
@@ -353,14 +391,16 @@ function showProducts(containerId, catIndex, subIndex) {
 
   let html = `
 
-    <button class="back-btn"
-      onclick="goBack('${containerId}')">
-
+    <button
+      class="back-btn"
+      onclick="goBack('${containerId}')"
+    >
       ⬅ Back
-
     </button>
 
-    <h2>${sub.name}</h2>
+    <h2 class="product-title">
+      ${sub.name}
+    </h2>
 
     <div class="grid">
   `;
@@ -372,19 +412,20 @@ function showProducts(containerId, catIndex, subIndex) {
 
     html += `
 
-      <div class="card">
+      <div class="card product-card">
 
-        <button class="add-btn"
+        <button
+          class="add-btn"
           onclick="event.stopPropagation();
-          addToCart('${safeName}', ${p.price}, '${p.img}')">
-
+          addToCart('${safeName}', ${p.price}, '${p.img}')"
+        >
           ➕
-
         </button>
 
         <img
           src="${p.img}"
           alt="${p.name}"
+          onerror="this.src='images/no-image.jpg'"
         >
 
         <h4>${p.name}</h4>
@@ -395,7 +436,9 @@ function showProducts(containerId, catIndex, subIndex) {
     `;
   });
 
-  html += `</div>`;
+  html += `
+    </div>
+  `;
 
   container.innerHTML = html;
 }
@@ -431,8 +474,6 @@ function goBack(containerId) {
   );
 }
 
-
-
 /* ================= NEW ARRIVALS ================= */
 
 function renderNewArrivals() {
@@ -448,14 +489,12 @@ function renderNewArrivals() {
 
     html += `
 
-      <div class="category-section">
+      <div class="new-arrival-section">
 
-        <!-- CATEGORY TITLE -->
         <h2 class="new-arrival-title">
           ${cat.title}
         </h2>
 
-        <!-- PRODUCTS ROW -->
         <div class="new-arrival-row">
     `;
 
@@ -472,7 +511,8 @@ function renderNewArrivals() {
 
             <button
               class="add-btn"
-              onclick="addToCart('${safeName}', ${p.price}, '${p.img}')">
+              onclick="addToCart('${safeName}', ${p.price}, '${p.img}')"
+            >
               ➕
             </button>
 

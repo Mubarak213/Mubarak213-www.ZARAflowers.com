@@ -51,17 +51,6 @@ body {
 
 /* ================= NEW ARRIVALS ================= */
 
-.new-arrival-title {
-
-  margin-bottom: 15px;
-
-  font-size: 24px;
-
-  font-weight: bold;
-
-  color: #222;
-}
-
 .new-arrival-row {
 
   display: flex;
@@ -70,7 +59,7 @@ body {
 
   overflow-x: auto;
 
-  padding-bottom: 10px;
+  padding: 10px 0;
 
   scroll-behavior: smooth;
 }
@@ -89,9 +78,16 @@ body {
 
 .new-arrival-card {
 
-  min-width: 220px;
+  min-width: 180px;
 
   flex-shrink: 0;
+}
+
+.new-arrival-title {
+
+  margin-bottom: 10px;
+
+  font-size: 24px;
 }
 
 
