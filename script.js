@@ -22,36 +22,37 @@ const subCategoryImages = {
       jadai:
         "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
 
-      decoration:
+       decoration:
         "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
 
       malai:
         "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
     },
 
-    "👶 puberty": {
+   "👶  puberty": {
 
       jadai:
-        "https://drive.google.com/thumbnail?id=1BEMBYPUInCoRA45PhERvyEXi6PVUb47J&sz=w1000",
+        "https://drive.google.com/thumbnail?id=1bAYErvna1ajEf4-1XHUudYTYp7zKP65R&sz=w1000",
 
-      decoration:
+       decoration:
         "https://drive.google.com/thumbnail?id=1qFuBCaizn8WenvWPKnNTr4W9VORsxgB-&sz=w1000",
 
       malai:
-        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+        "https://drive.google.com/thumbnail?id=1tG4B6tL2U7HKwH2OLQy8SISG_XTWtfPe&sz=w1000"
     },
 
-    "👶 house warming": {
+   "👶  house warming": {
 
       jadai:
         "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
 
-      decoration:
+       decoration:
         "https://drive.google.com/thumbnail?id=1XOVsn3ENf-rMpfi5DfQ7h68bfC1y9ptf&sz=w1000",
 
       malai:
-        "https://drive.google.com/thumbnail?id=1jfNmjOg-pk9LdF3XOPeNrpPI3xudmcbJ&sz=w1000"
+        "https://drive.google.com/thumbnail?id=1OOu2BqXjp0_s0yUauXyKQVU6yCdgEDzf&sz=w1000"
     },
+
 
     "💍 engagement": {
 
@@ -64,7 +65,7 @@ const subCategoryImages = {
       jadai:
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     }
-  }
+  },
 };
 
 /* ================= FETCH DATA ================= */
@@ -727,8 +728,8 @@ function checkoutWhatsApp() {
     return;
   }
 
-  let message =
-    "🛒 *New Order*%0A%0A";
+ let message =
+  "🛒 *New Order*\n\n";
 
   let total = 0;
 
