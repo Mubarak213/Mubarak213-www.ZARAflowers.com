@@ -728,10 +728,10 @@ function checkoutWhatsApp() {
     return;
   }
 
- let message =
-  "🛒 *New Order*\n\n";
-
   let total = 0;
+
+  let message =
+    "🛒 *New Order* \n\n";
 
   cart.forEach(item => {
 
@@ -741,10 +741,10 @@ function checkoutWhatsApp() {
     total += subtotal;
 
     message +=
-      `📦 Product: ${item.name}%0A` +
-      `Qty: ${item.qty}%0A` +
-      `Price: ₹${item.price}%0A` +
-      `Subtotal: ₹${subtotal}%0A%0A`;
+      `📦 Product: ${item.name}\n` +
+      `Qty: ${item.qty}\n` +
+      `Price: ₹${item.price}\n` +
+      `Subtotal: ₹${subtotal}\n\n`;
   });
 
   message +=
@@ -753,12 +753,131 @@ function checkoutWhatsApp() {
   const phone =
     "919159842232";
 
+  const encodedMessage =
+    encodeURIComponent(message);
+
   window.open(
-    `https://wa.me/${phone}?text=${message}`,
+    `https://wa.me/${phone}?text=${encodedMessage}`,
     "_blank"
   );
 
   /* CLEAR CART */
+
+  clearCart();
+}
+
+/* ================= RAZORPAY PAYMENT ================= */
+
+function payNow() {
+
+  if (cart.length === 0) {
+
+    alert("Your cart is empty");
+
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    total += item.price * item.qty;
+  });
+
+  const options = {
+
+    key: "rzp_live_SnUXDw3jo9tMFs", // REPLACE WITH YOUR KEY
+
+    amount: total * 100,
+
+    currency: "INR",
+
+    name: "ShopMart",
+
+    description: "ShopMart Order Payment",
+
+    image: "images/logo.png",
+
+    handler: function (response) {
+
+      alert(
+        "Payment Successful!\nPayment ID: " +
+        response.razorpay_payment_id
+      );
+
+      sendPaymentWhatsApp(
+        response.razorpay_payment_id,
+        total
+      );
+
+      /* CLEAR CART */
+
+      clearCart();
+    },
+
+    prefill: {
+
+      name: "",
+
+      email: "",
+
+      contact: ""
+    },
+
+    notes: {
+
+      address: "ShopMart Customer"
+    },
+
+    theme: {
+
+      color: "#3399cc"
+    }
+  };
+
+  const rzp =
+    new Razorpay(options);
+
+  rzp.open();
+}
+
+/* ================= SEND PAYMENT TO WHATSAPP ================= */
+
+function sendPaymentWhatsApp(paymentId, total) {
+
+  let message =
+    "✅ *Payment Successful* \n\n";
+
+  cart.forEach(item => {
+
+    message +=
+      `📦 Product: ${item.name}\n` +
+      `Qty: ${item.qty}\n` +
+      `Price: ₹${item.price}\n\n`;
+  });
+
+  message +=
+    `💰 Total Amount: ₹${total}\n\n`;
+
+  message +=
+    `🆔 Payment ID: ${paymentId}`;
+
+  const encodedMessage =
+    encodeURIComponent(message);
+
+  const phone =
+    "919159842232";
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodedMessage}`,
+    "_blank"
+  );
+}
+
+/* ================= CLEAR CART ================= */
+
+function clearCart() {
+
   cart = [];
 
   localStorage.removeItem("cart");
@@ -766,8 +885,6 @@ function checkoutWhatsApp() {
   updateCart();
 
   renderCartPage();
-
-  alert("Order placed successfully!");
 }
 
 /* ================= LOAD PAGE ================= */
