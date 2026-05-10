@@ -1,47 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>ShopMart</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
+
 <body>
 
 <!-- ================= HEADER ================= -->
+
 <header class="header">
 
-  <!-- Logo -->
+  <!-- LOGO -->
+
   <div class="logo">
-    ShopMart
+
+    ZAHRA Garlands
+
   </div>
 
-  <!-- Search -->
-  <div class="search-bar">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search products..."
-    >
-    <span>🔍</span>
+  <!-- ================= AMAZON STYLE SEARCH ================= -->
+
+  <div class="search-wrapper">
+
+    <div class="search-bar">
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        autocomplete="off"
+      >
+
+      <span>🔍</span>
+
+    </div>
+
+    <!-- LIVE SEARCH RESULTS -->
+
+    <div
+      id="searchResults"
+      class="search-results"
+    ></div>
+
   </div>
 
-  <!-- Actions -->
+  <!-- ================= ACTIONS ================= -->
+
   <div class="actions">
 
-    <button class="btn">
+    <!-- LOGIN -->
+
+    <button
+      class="btn"
+      onclick="saveMobileNumber()"
+    >
+
       Login
+
     </button>
 
-    <!-- Cart -->
-    <a href="cart.html" class="btn">
+    <!-- CART -->
+
+    <a
+      href="cart.html"
+      class="btn"
+    >
+
       Cart 🛒
-      <span id="cart-count">0</span>
+
+      <span id="cart-count">
+        0
+      </span>
+
     </a>
 
   </div>
@@ -49,6 +96,7 @@
 </header>
 
 <!-- ================= CATEGORY BAR ================= -->
+
 <nav class="category-bar">
 
   <a href="flowers.html">
@@ -78,6 +126,7 @@
 </nav>
 
 <!-- ================= BANNER ================= -->
+
 <section class="banner">
 
   <img
@@ -88,24 +137,38 @@
 </section>
 
 <!-- ================= NEW ARRIVALS ================= -->
+
 <section class="section">
 
-  <h2>🌟 Latest Products</h2>
+  <h2>
 
-  <!-- Dynamic New Arrivals -->
-  <div id="new-arrivals" class="grid"></div>
+    🌟 Latest Products
+
+  </h2>
+
+  <!-- DYNAMIC PRODUCTS -->
+
+  <div
+    id="new-arrivals"
+    class="grid"
+  ></div>
 
 </section>
 
+<!-- ================= CO FOUNDERS ================= -->
 
-<!-- ================= CO-FOUNDERS ================= -->
 <section class="section founders-section">
 
-  <h2>👨‍💼 Co-Founders</h2>
+  <h2>
+
+    👨‍💼 Co-Founders
+
+  </h2>
 
   <div class="slider">
 
-    <!-- Founder 1 -->
+    <!-- FOUNDER 1 -->
+
     <div class="slide active">
 
       <img
@@ -114,13 +177,25 @@
       >
 
       <div class="info">
-        <h3>Rahul Sharma</h3>
-        <p>CEO & Founder of ShopMart</p>
+
+        <h3>
+
+          Rahul Sharma
+
+        </h3>
+
+        <p>
+
+          CEO & Founder of ShopMart
+
+        </p>
+
       </div>
 
     </div>
 
-    <!-- Founder 2 -->
+    <!-- FOUNDER 2 -->
+
     <div class="slide">
 
       <img
@@ -129,13 +204,25 @@
       >
 
       <div class="info">
-        <h3>Amit Verma</h3>
-        <p>CTO & Tech Architect</p>
+
+        <h3>
+
+          Amit Verma
+
+        </h3>
+
+        <p>
+
+          CTO & Tech Architect
+
+        </p>
+
       </div>
 
     </div>
 
-    <!-- Founder 3 -->
+    <!-- FOUNDER 3 -->
+
     <div class="slide">
 
       <img
@@ -144,8 +231,19 @@
       >
 
       <div class="info">
-        <h3>Pooja Singh</h3>
-        <p>CMO & Marketing Head</p>
+
+        <h3>
+
+          Pooja Singh
+
+        </h3>
+
+        <p>
+
+          CMO & Marketing Head
+
+        </p>
+
       </div>
 
     </div>
@@ -155,34 +253,50 @@
 </section>
 
 <!-- ================= CONTACT BUTTONS ================= -->
+
 <div class="contact-buttons">
 
-  <!-- Call -->
+  <!-- CALL -->
+
   <a
     href="tel:+919159842232"
     class="call-btn"
   >
+
     📞 Call Us
+
   </a>
 
-  <!-- WhatsApp -->
+  <!-- WHATSAPP -->
+
   <a
     href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20ShopMart"
     target="_blank"
     class="whatsapp-btn"
   >
+
     💬 WhatsApp
+
   </a>
 
 </div>
 
 <!-- ================= FOOTER ================= -->
+
 <footer>
+
   © 2026 ShopMart | All Rights Reserved
+
 </footer>
 
-<!-- ================= SCRIPT ================= -->
+<!-- ================= RAZORPAY ================= -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- ================= MAIN SCRIPT ================= -->
+
 <script src="script.js"></script>
 
 </body>
+
 </html>
