@@ -86,20 +86,7 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
     },
 
-
-    "👶 baby shower": {
-
-      "jadai":
-        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
-
-      "decoration":
-        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
-
-      "malai":
-        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
-    },
-
-   "👶 puberty": {
+   "👩 puberty": {
 
       jadai:
         "https://drive.google.com/thumbnail?id=1bAYErvna1ajEf4-1XHUudYTYp7zKP65R&sz=w1000",
@@ -111,17 +98,6 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1tG4B6tL2U7HKwH2OLQy8SISG_XTWtfPe&sz=w1000"
     },
 
-    "👶  house warming": {
-
-      "jadai":
-        "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
-
-      "decoration":
-        "https://drive.google.com/thumbnail?id=1XOVsn3ENf-rMpfi5DfQ7h68bfC1y9ptf&sz=w1000",
-
-      "malai":
-        "https://drive.google.com/thumbnail?id=1OOu2BqXjp0_s0yUauXyKQVU6yCdgEDzf&sz=w1000"
-    },
 
     "💍 engagement": {
 
@@ -134,7 +110,7 @@ const subCategoryImages = {
       "jadai":
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     },
-"👰🤵 wedding": {
+    "👰🤵 wedding": {
 
       "malai":
         "https://drive.google.com/thumbnail?id=1s6-LDMmFgDxpELMtEC85huzXgDWnHj3v&sz=w1000",
@@ -146,7 +122,19 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     },
 
-    "👶  house warming": {
+   "🤰 baby shower": {
+
+      "jadai":
+        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
+
+      "decoration":
+        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
+
+      "malai":
+        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
+    },
+
+    "🏡 house warming": {
 
       "jadai":
         "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
@@ -202,14 +190,6 @@ function convertDriveImage(url) {
 
   return url;
 }
-
-/* ================= PROCESS DATA ================= */
-/* ================= PROCESS DATA ================= */
-    /* ================= NEW ARRIVAL ================= */
-
-    /* ================= NORMAL CATEGORY ================= */
-
-/* ================= CUSTOM CATEGORY ORDER ================= */
 
 
 /* ================= PROCESS DATA ================= */
@@ -353,11 +333,11 @@ function processSheetData(rows) {
   const desiredOrder = [
     "🌸 raw flowers",
     "👶 baby",
-    "👶 puberty",
+    "👩 puberty",
     "💍 engagement",
     "👰🤵 wedding",
-    "👶 baby shower",
-    "👶 house warming"
+    "🤰 baby shower",
+    "🏡 house warming"
   ];
 
   Object.keys(categoryData).forEach(mainCategory => {
