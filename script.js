@@ -58,22 +58,48 @@ function checkUserLogin() {
 
 const subCategoryImages = {
 
-
   flowers: {
 
-    "👶 baby shower": {
+"🌸 raw flowers": {
 
-      jadai:
+      "rose":
+        "https://drive.google.com/thumbnail?id=130_vgrEaMKH5WPb4F7rZfV5t8KQ7Hlql&sz=w1000",
+
+      "chamanthi":
+        "https://drive.google.com/thumbnail?id=1xtdQTVjiWgbO8sxNQwRsmd0rUC0efK8g&sz=w1000",
+
+      "threaded":
+        "https://drive.google.com/thumbnail?id=1rJk3_XHeVR0KLlUKscisiDyvNkp2X4X0&sz=w1000"
+
+    },
+
+
+    "👶 baby": {
+
+      "jadai":
         "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
 
-       decoration:
+      "decoration":
         "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
 
-      malai:
+      "malai":
         "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
     },
 
-   "👶  puberty": {
+
+    "👶 baby shower": {
+
+      "jadai":
+        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
+
+      "decoration":
+        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
+
+      "malai":
+        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
+    },
+
+   "👶 puberty": {
 
       jadai:
         "https://drive.google.com/thumbnail?id=1bAYErvna1ajEf4-1XHUudYTYp7zKP65R&sz=w1000",
@@ -85,32 +111,54 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1tG4B6tL2U7HKwH2OLQy8SISG_XTWtfPe&sz=w1000"
     },
 
-   "👶  house warming": {
+    "👶  house warming": {
 
-      jadai:
+      "jadai":
         "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
 
-       decoration:
+      "decoration":
         "https://drive.google.com/thumbnail?id=1XOVsn3ENf-rMpfi5DfQ7h68bfC1y9ptf&sz=w1000",
 
-      malai:
+      "malai":
         "https://drive.google.com/thumbnail?id=1OOu2BqXjp0_s0yUauXyKQVU6yCdgEDzf&sz=w1000"
     },
 
-
     "💍 engagement": {
 
-      malai:
+      "malai":
         "https://drive.google.com/thumbnail?id=1s6-LDMmFgDxpELMtEC85huzXgDWnHj3v&sz=w1000",
 
-      decoration:
+      "decoration":
         "https://drive.google.com/thumbnail?id=1qFuBCaizn8WenvWPKnNTr4W9VORsxgB-&sz=w1000",
 
-      jadai:
+      "jadai":
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
+    },
+"👰🤵 wedding": {
+
+      "malai":
+        "https://drive.google.com/thumbnail?id=1s6-LDMmFgDxpELMtEC85huzXgDWnHj3v&sz=w1000",
+
+      "decoration":
+        "https://drive.google.com/thumbnail?id=1qFuBCaizn8WenvWPKnNTr4W9VORsxgB-&sz=w1000",
+
+      "jadai":
+        "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
+    },
+
+    "👶  house warming": {
+
+      "jadai":
+        "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
+
+      "decoration":
+        "https://drive.google.com/thumbnail?id=1XOVsn3ENf-rMpfi5DfQ7h68bfC1y9ptf&sz=w1000",
+
+      "malai":
+        "https://drive.google.com/thumbnail?id=1OOu2BqXjp0_s0yUauXyKQVU6yCdgEDzf&sz=w1000"
     }
-  },
-};  
+  }
+};
 
 /* ================= FETCH DATA ================= */
 
@@ -156,6 +204,15 @@ function convertDriveImage(url) {
 }
 
 /* ================= PROCESS DATA ================= */
+/* ================= PROCESS DATA ================= */
+    /* ================= NEW ARRIVAL ================= */
+
+    /* ================= NORMAL CATEGORY ================= */
+
+/* ================= CUSTOM CATEGORY ORDER ================= */
+
+
+/* ================= PROCESS DATA ================= */
 
 function processSheetData(rows) {
 
@@ -176,11 +233,13 @@ function processSheetData(rows) {
 
     const categoryTitle =
       (row.category_title || "")
-        .trim();
+        .trim()
+        .toLowerCase();
 
     const subCategory =
       (row.sub_category || "")
-        .trim();
+        .trim()
+        .toLowerCase();
 
     const image =
       convertDriveImage(row.image);
@@ -289,8 +348,45 @@ function processSheetData(rows) {
     }
   });
 
+  /* ================= CUSTOM CATEGORY ORDER ================= */
+
+  const desiredOrder = [
+    "🌸 raw flowers",
+    "👶 baby",
+    "👶 puberty",
+    "💍 engagement",
+    "👰🤵 wedding",
+    "👶 baby shower",
+    "👶 house warming"
+  ];
+
+  Object.keys(categoryData).forEach(mainCategory => {
+
+    categoryData[mainCategory].sort((a, b) => {
+
+      const orderA =
+        desiredOrder.indexOf(a.title);
+
+      const orderB =
+        desiredOrder.indexOf(b.title);
+
+      const finalA =
+        orderA === -1 ? 999 : orderA;
+
+      const finalB =
+        orderB === -1 ? 999 : orderB;
+
+      return finalA - finalB;
+    });
+  });
+
+ 
+
+  /* ================= LOAD PAGE ================= */
+
   loadPageData();
 }
+
 
 /* ================= RENDER SUB CATEGORIES ================= */
 
