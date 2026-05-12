@@ -60,7 +60,7 @@ const subCategoryImages = {
 
   flowers: {
 
-    "🌸 raw flowers": {
+"🌸 raw flowers": {
 
       "rose":
         "https://drive.google.com/thumbnail?id=130_vgrEaMKH5WPb4F7rZfV5t8KQ7Hlql&sz=w1000",
@@ -70,7 +70,9 @@ const subCategoryImages = {
 
       "threaded":
         "https://drive.google.com/thumbnail?id=1rJk3_XHeVR0KLlUKscisiDyvNkp2X4X0&sz=w1000"
+
     },
+
 
     "👶 baby": {
 
@@ -84,16 +86,41 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
     },
 
-    "👩 puberty": {
+
+    "👶 baby shower": {
 
       "jadai":
-        "https://drive.google.com/thumbnail?id=1bAYErvna1ajEf4-1XHUudYTYp7zKP65R&sz=w1000",
+        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
 
       "decoration":
-        "https://drive.google.com/thumbnail?id=1qFuBCaizn8WenvWPKnNTr4W9VORsxgB-&sz=w1000",
+        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
 
       "malai":
+        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
+    },
+
+   "👶 puberty": {
+
+      jadai:
+        "https://drive.google.com/thumbnail?id=1bAYErvna1ajEf4-1XHUudYTYp7zKP65R&sz=w1000",
+
+       decoration:
+        "https://drive.google.com/thumbnail?id=1qFuBCaizn8WenvWPKnNTr4W9VORsxgB-&sz=w1000",
+
+      malai:
         "https://drive.google.com/thumbnail?id=1tG4B6tL2U7HKwH2OLQy8SISG_XTWtfPe&sz=w1000"
+    },
+
+    "👶  house warming": {
+
+      "jadai":
+        "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
+
+      "decoration":
+        "https://drive.google.com/thumbnail?id=1XOVsn3ENf-rMpfi5DfQ7h68bfC1y9ptf&sz=w1000",
+
+      "malai":
+        "https://drive.google.com/thumbnail?id=1OOu2BqXjp0_s0yUauXyKQVU6yCdgEDzf&sz=w1000"
     },
 
     "💍 engagement": {
@@ -107,8 +134,7 @@ const subCategoryImages = {
       "jadai":
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     },
-
-    "👰🤵 wedding": {
+"👰🤵 wedding": {
 
       "malai":
         "https://drive.google.com/thumbnail?id=1s6-LDMmFgDxpELMtEC85huzXgDWnHj3v&sz=w1000",
@@ -120,19 +146,7 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     },
 
-    "🤰 baby shower": {
-
-      "jadai":
-        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
-
-      "decoration":
-        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
-
-      "malai":
-        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
-    },
-
-    "🏡 house warming": {
+    "👶  house warming": {
 
       "jadai":
         "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
@@ -190,6 +204,15 @@ function convertDriveImage(url) {
 }
 
 /* ================= PROCESS DATA ================= */
+/* ================= PROCESS DATA ================= */
+    /* ================= NEW ARRIVAL ================= */
+
+    /* ================= NORMAL CATEGORY ================= */
+
+/* ================= CUSTOM CATEGORY ORDER ================= */
+
+
+/* ================= PROCESS DATA ================= */
 
 function processSheetData(rows) {
 
@@ -223,10 +246,6 @@ function processSheetData(rows) {
 
     const product = {
 
-      id:
-        Date.now() +
-        Math.random(),
-
       name:
         row.product_name || "No Name",
 
@@ -234,11 +253,7 @@ function processSheetData(rows) {
         Number(row.price) || 0,
 
       img:
-        image,
-
-      description:
-        row.description ||
-        "Premium quality product available at ShopMart."
+        image
     };
 
     if (!mainCategory || !subCategory) return;
@@ -333,16 +348,16 @@ function processSheetData(rows) {
     }
   });
 
-  /* ================= CATEGORY ORDER ================= */
+  /* ================= CUSTOM CATEGORY ORDER ================= */
 
   const desiredOrder = [
     "🌸 raw flowers",
     "👶 baby",
-    "👩 puberty",
+    "👶 puberty",
     "💍 engagement",
     "👰🤵 wedding",
-    "🤰 baby shower",
-    "🏡 house warming"
+    "👶 baby shower",
+    "👶 house warming"
   ];
 
   Object.keys(categoryData).forEach(mainCategory => {
@@ -355,86 +370,23 @@ function processSheetData(rows) {
       const orderB =
         desiredOrder.indexOf(b.title);
 
-      return orderA - orderB;
+      const finalA =
+        orderA === -1 ? 999 : orderA;
+
+      const finalB =
+        orderB === -1 ? 999 : orderB;
+
+      return finalA - finalB;
     });
   });
+
+ 
+
+  /* ================= LOAD PAGE ================= */
 
   loadPageData();
 }
 
-/* ================= PRODUCT DETAILS ================= */
-
-function openProductPage(product) {
-
-  localStorage.setItem(
-    "selectedProduct",
-    JSON.stringify(product)
-  );
-
-  window.location.href =
-    "product.html";
-}
-
-function loadProductDetails() {
-
-  const container =
-    document.getElementById("productDetails");
-
-  if (!container) return;
-
-  const product =
-    JSON.parse(
-      localStorage.getItem("selectedProduct")
-    );
-
-  if (!product) {
-
-    container.innerHTML =
-      "<h2>Product not found</h2>";
-
-    return;
-  }
-
-  const safeName =
-    product.name.replace(/'/g, "\\'");
-
-  container.innerHTML = `
-
-    <div class="product-details-page">
-
-      <div class="product-image">
-
-        <img
-          src="${product.img}"
-          alt="${product.name}"
-        >
-
-      </div>
-
-      <div class="product-content">
-
-        <h1>${product.name}</h1>
-
-        <h2>₹${product.price}</h2>
-
-        <p>${product.description}</p>
-
-        <button
-          class="btn"
-          onclick="addToCart(
-            '${safeName}',
-            ${product.price},
-            '${product.img}'
-          )"
-        >
-          Add To Cart
-        </button>
-
-      </div>
-
-    </div>
-  `;
-}
 
 /* ================= RENDER SUB CATEGORIES ================= */
 
@@ -493,6 +445,7 @@ function renderSubCategories(data, containerId) {
           <img
             src="${image}"
             alt="${sub.name}"
+            onerror="this.src='images/no-image.jpg'"
           >
 
           <div class="subcategory-info">
@@ -576,10 +529,7 @@ function showProducts(containerId, catIndex, subIndex) {
 
     html += `
 
-      <div
-        class="card product-card"
-        onclick='openProductPage(${JSON.stringify(p)})'
-      >
+      <div class="card product-card">
 
         <button
           class="add-btn"
@@ -592,6 +542,7 @@ function showProducts(containerId, catIndex, subIndex) {
         <img
           src="${p.img}"
           alt="${p.name}"
+          onerror="this.src='images/no-image.jpg'"
         >
 
         <h4>${p.name}</h4>
@@ -653,6 +604,17 @@ function renderNewArrivals() {
 
   newArrivalData.forEach(cat => {
 
+    html += `
+
+      <div class="new-arrival-section">
+
+        <h2 class="new-arrival-title">
+          ${cat.title}
+        </h2>
+
+        <div class="new-arrival-row">
+    `;
+
     cat.subcategories.forEach(sub => {
 
       sub.products.forEach(p => {
@@ -662,15 +624,11 @@ function renderNewArrivals() {
 
         html += `
 
-          <div
-            class="card new-arrival-card"
-            onclick='openProductPage(${JSON.stringify(p)})'
-          >
+          <div class="card new-arrival-card">
 
             <button
               class="add-btn"
-              onclick="event.stopPropagation();
-              addToCart('${safeName}', ${p.price}, '${p.img}')"
+              onclick="addToCart('${safeName}', ${p.price}, '${p.img}')"
             >
               ➕
             </button>
@@ -678,6 +636,7 @@ function renderNewArrivals() {
             <img
               src="${p.img}"
               alt="${p.name}"
+              onerror="this.src='images/no-image.jpg'"
             >
 
             <h4>${p.name}</h4>
@@ -690,10 +649,17 @@ function renderNewArrivals() {
         `;
       });
     });
+
+    html += `
+        </div>
+      </div>
+    `;
   });
 
   container.innerHTML = html;
 }
+
+
 
 /* ================= UPDATE CART ================= */
 
@@ -770,6 +736,10 @@ function renderCartPage() {
 
         <h3>🛒 Your cart is empty</h3>
 
+        <a href="index.html" class="btn">
+          Continue Shopping
+        </a>
+
       </div>
     `;
 
@@ -797,6 +767,7 @@ function renderCartPage() {
         <img
           src="${item.img}"
           alt="${item.name}"
+          onerror="this.src='images/no-image.jpg'"
         >
 
         <div class="cart-info">
@@ -878,6 +849,179 @@ function removeFromCart(index) {
   renderCartPage();
 }
 
+/* ================= WHATSAPP CHECKOUT ================= */
+
+function checkoutWhatsApp() {
+
+  if (cart.length === 0) {
+
+    alert("Your cart is empty");
+
+    return;
+  }
+
+  if (!userMobile) {
+
+    saveMobileNumber();
+
+    if (!userMobile) return;
+  }
+
+  let total = 0;
+
+  let message =
+    "🛒 *New Order* \n\n";
+
+  message +=
+    `📱 Mobile: ${userMobile}\n\n`;
+
+  cart.forEach(item => {
+
+    const subtotal =
+      item.price * item.qty;
+
+    total += subtotal;
+
+    message +=
+      `📦 Product: ${item.name}\n` +
+      `Qty: ${item.qty}\n` +
+      `Price: ₹${item.price}\n` +
+      `Subtotal: ₹${subtotal}\n\n`;
+  });
+
+  message +=
+    `💰 Total Amount: ₹${total}`;
+
+  const encodedMessage =
+    encodeURIComponent(message);
+
+  const phone =
+    "919159842232";
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodedMessage}`,
+    "_blank"
+  );
+
+  clearCart();
+}
+
+/* ================= RAZORPAY PAYMENT ================= */
+
+function payNow() {
+
+  if (cart.length === 0) {
+
+    alert("Your cart is empty");
+
+    return;
+  }
+
+  if (!userMobile) {
+
+    saveMobileNumber();
+
+    if (!userMobile) return;
+  }
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    total += item.price * item.qty;
+  });
+
+  const options = {
+
+    key: "rzp_live_SnUXDw3jo9tMFs",
+
+    amount: total * 100,
+
+    currency: "INR",
+
+    name: "ShopMart",
+
+    description: "ShopMart Order Payment",
+
+    image: "images/logo.png",
+
+    handler: function(response) {
+
+      alert(
+        "Payment Successful!\nPayment ID: " +
+        response.razorpay_payment_id
+      );
+
+      sendPaymentWhatsApp(
+        response.razorpay_payment_id,
+        total
+      );
+
+      clearCart();
+    },
+
+    prefill: {
+
+      name: "ShopMart Customer",
+
+      email: "",
+
+      contact: userMobile
+    },
+
+    notes: {
+
+      mobile: userMobile
+    },
+
+    theme: {
+
+      color: "#3399cc"
+    }
+  };
+
+  const rzp =
+    new Razorpay(options);
+
+  rzp.open();
+}
+
+/* ================= SEND PAYMENT TO WHATSAPP ================= */
+
+function sendPaymentWhatsApp(paymentId, total) {
+
+  let message =
+    "✅ *Payment Successful* \n\n";
+
+  message +=
+    `📱 Mobile: ${userMobile}\n\n`;
+
+  cart.forEach(item => {
+
+    message +=
+      `📦 Product: ${item.name}\n` +
+      `Qty: ${item.qty}\n` +
+      `Price: ₹${item.price}\n\n`;
+  });
+
+  message +=
+    `💰 Total Amount: ₹${total}\n\n`;
+
+  message +=
+    `🆔 Payment ID: ${paymentId}`;
+
+  const encodedMessage =
+    encodeURIComponent(message);
+
+  const phone =
+    "919159842232";
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodedMessage}`,
+    "_blank"
+  );
+}
+
 /* ================= CLEAR CART ================= */
 
 function clearCart() {
@@ -891,7 +1035,96 @@ function clearCart() {
   renderCartPage();
 }
 
-/* ================= SEARCH ================= */
+/* ================= LOAD PAGE ================= */
+
+function loadPageData() {
+
+  /* FLOWERS PAGE */
+
+  if (
+    document.getElementById("flowersCategories")
+  ) {
+
+    renderSubCategories(
+      categoryData["flowers"],
+      "flowersCategories"
+    );
+  }
+
+  /* GROCERY PAGE */
+
+  if (
+    document.getElementById("groceryCategories")
+  ) {
+
+    renderSubCategories(
+      categoryData["grocery"],
+      "groceryCategories"
+    );
+  }
+
+  /* DRY FRUITS PAGE */
+
+  if (
+    document.getElementById("dryfruitsCategories")
+  ) {
+
+    renderSubCategories(
+      categoryData["dryfruits"],
+      "dryfruitsCategories"
+    );
+  }
+
+  /* GIFTS PAGE */
+
+  if (
+    document.getElementById("giftsCategories")
+  ) {
+
+    renderSubCategories(
+      categoryData["gifts"],
+      "giftsCategories"
+    );
+  }
+
+  /* ELECTRONICS PAGE */
+
+  if (
+    document.getElementById("electronicsCategories")
+  ) {
+
+    renderSubCategories(
+      categoryData["electronics"],
+      "electronicsCategories"
+    );
+  }
+
+  /* BIRTHDAY PAGE */
+
+  if (
+    document.getElementById("birthdayCategories")
+  ) {
+
+    renderSubCategories(
+      categoryData["birthday"],
+      "birthdayCategories"
+    );
+  }
+
+  /* HOME PAGE */
+
+  renderNewArrivals();
+
+  updateCart();
+
+  renderCartPage();
+
+  /* SEARCH */
+
+  setupGlobalSearch();
+}
+
+/* ================= GLOBAL SEARCH ================= */
 
 let searchInitialized = false;
 
@@ -921,6 +1154,8 @@ function setupGlobalSearch() {
           .trim()
           .toLowerCase();
 
+      /* EMPTY */
+
       if (!query) {
 
         resultsBox.innerHTML = "";
@@ -930,8 +1165,12 @@ function setupGlobalSearch() {
         return;
       }
 
+      /* GET PRODUCTS */
+
       const allProducts =
         getAllProducts();
+
+      /* FILTER ONLY NAMES */
 
       const matchedProducts =
         allProducts.filter(product => {
@@ -944,10 +1183,65 @@ function setupGlobalSearch() {
           );
         });
 
+      /* REMOVE DUPLICATE NAMES */
+
+      const uniqueNames = [];
+
+      const used = new Set();
+
+      matchedProducts.forEach(product => {
+
+        const name =
+          product.name.trim();
+
+        if (!used.has(name)) {
+
+          used.add(name);
+
+          uniqueNames.push(product);
+        }
+      });
+
+      /* LIMIT */
+
+      const suggestions =
+        uniqueNames.slice(0, 8);
+
       renderSearchSuggestions(
-        matchedProducts.slice(0, 8),
+        suggestions,
         resultsBox
       );
+    }
+  );
+
+  /* CLICK OUTSIDE */
+
+  document.addEventListener(
+    "click",
+    function (e) {
+
+      if (
+        !searchInput.contains(e.target) &&
+        !resultsBox.contains(e.target)
+      ) {
+
+        resultsBox.style.display = "none";
+      }
+    }
+  );
+
+  /* FOCUS */
+
+  searchInput.addEventListener(
+    "focus",
+    function () {
+
+      if (
+        resultsBox.innerHTML.trim() !== ""
+      ) {
+
+        resultsBox.style.display = "block";
+      }
     }
   );
 }
@@ -956,12 +1250,18 @@ function setupGlobalSearch() {
 
 function renderSearchSuggestions(products, container) {
 
+  /* EMPTY */
+
   if (!products.length) {
 
     container.innerHTML = `
+
       <div class="search-empty">
+
         No products found
+
       </div>
+
     `;
 
     container.style.display = "block";
@@ -973,16 +1273,133 @@ function renderSearchSuggestions(products, container) {
 
   products.forEach(product => {
 
+    const safeName =
+      product.name.replace(/'/g, "\\'");
+
     html += `
 
       <div
         class="search-suggestion"
-        onclick='openProductPage(${JSON.stringify(product)})'
+        onclick="showSearchProducts('${safeName}')"
       >
 
-        🔍 ${product.name}
+        <span class="search-icon">
+          🔍
+        </span>
+
+        <span class="search-text">
+          ${product.name}
+        </span>
 
       </div>
+
+    `;
+  });
+
+  container.innerHTML = html;
+
+  container.style.display = "block";
+}
+
+/* ================= SHOW SEARCH PRODUCTS ================= */
+
+function showSearchProducts(productName) {
+
+  const resultsBox =
+    document.getElementById("searchResults");
+
+  const searchInput =
+    document.getElementById("searchInput");
+
+  searchInput.value = productName;
+
+  const allProducts =
+    getAllProducts();
+
+  const filteredProducts =
+    allProducts.filter(product => {
+
+      return (
+        product.name &&
+        product.name
+          .toLowerCase()
+          .includes(
+            productName.toLowerCase()
+          )
+      );
+    });
+
+  renderFullSearchResults(
+    filteredProducts,
+    resultsBox
+  );
+}
+
+/* ================= FULL SEARCH RESULTS ================= */
+
+function renderFullSearchResults(products, container) {
+
+  if (!products.length) {
+
+    container.innerHTML = `
+
+      <div class="search-empty">
+
+        No products found
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+  let html = "";
+
+  products.forEach(product => {
+
+    const safeName =
+      product.name.replace(/'/g, "\\'");
+
+    html += `
+
+      <div class="search-item">
+
+        <img
+          src="${product.img}"
+          alt="${product.name}"
+          onerror="this.src='images/no-image.jpg'"
+        >
+
+        <div class="search-info">
+
+          <h4>
+            ${product.name}
+          </h4>
+
+          <p>
+            ₹${product.price}
+          </p>
+
+          <small>
+            ${product.subcategory}
+          </small>
+
+        </div>
+
+        <button
+          class="search-add-btn"
+          onclick="addToCart(
+            '${safeName}',
+            ${product.price},
+            '${product.img}'
+          )"
+        >
+          ➕
+        </button>
+
+      </div>
+
     `;
   });
 
@@ -1006,7 +1423,11 @@ function getAllProducts() {
 
     categories.forEach(category => {
 
+      if (!category.subcategories) return;
+
       category.subcategories.forEach(sub => {
+
+        if (!sub.products) return;
 
         sub.products.forEach(product => {
 
@@ -1022,10 +1443,6 @@ function getAllProducts() {
               product.img ||
               "images/no-image.jpg",
 
-            description:
-              product.description ||
-              "",
-
             category:
               category.title || "",
 
@@ -1037,82 +1454,102 @@ function getAllProducts() {
     });
   });
 
-  return products;
+  /* REMOVE DUPLICATES */
+
+  const uniqueProducts = [];
+
+  const seen = new Set();
+
+  products.forEach(product => {
+
+    const key =
+      product.name + "-" + product.price;
+
+    if (!seen.has(key)) {
+
+      seen.add(key);
+
+      uniqueProducts.push(product);
+    }
+  });
+
+  return uniqueProducts;
 }
 
-/* ================= LOAD PAGE ================= */
+/* ================= RENDER SEARCH RESULTS ================= */
 
-function loadPageData() {
+function renderSearchResults(products, container) {
 
-  if (
-    document.getElementById("flowersCategories")
-  ) {
+  /* NO RESULTS */
 
-    renderSubCategories(
-      categoryData["flowers"],
-      "flowersCategories"
-    );
+  if (!products.length) {
+
+    container.innerHTML = `
+
+      <div class="search-empty">
+
+        No products found
+
+      </div>
+
+    `;
+
+    container.style.display = "block";
+
+    return;
   }
 
-  if (
-    document.getElementById("groceryCategories")
-  ) {
+  let html = "";
 
-    renderSubCategories(
-      categoryData["grocery"],
-      "groceryCategories"
-    );
-  }
+  products.forEach(product => {
 
-  if (
-    document.getElementById("dryfruitsCategories")
-  ) {
+    const safeName =
+      product.name.replace(/'/g, "\\'");
 
-    renderSubCategories(
-      categoryData["dryfruits"],
-      "dryfruitsCategories"
-    );
-  }
+    html += `
 
-  if (
-    document.getElementById("giftsCategories")
-  ) {
+      <div class="search-item">
 
-    renderSubCategories(
-      categoryData["gifts"],
-      "giftsCategories"
-    );
-  }
+        <img
+          src="${product.img}"
+          alt="${product.name}"
+          onerror="this.src='images/no-image.jpg'"
+        >
 
-  if (
-    document.getElementById("electronicsCategories")
-  ) {
+        <div class="search-info">
 
-    renderSubCategories(
-      categoryData["electronics"],
-      "electronicsCategories"
-    );
-  }
+          <h4>
+            ${product.name}
+          </h4>
 
-  if (
-    document.getElementById("birthdayCategories")
-  ) {
+          <p>
+            ₹${product.price}
+          </p>
 
-    renderSubCategories(
-      categoryData["birthday"],
-      "birthdayCategories"
-    );
-  }
+          <small>
+            ${product.subcategory}
+          </small>
 
-  renderNewArrivals();
+        </div>
 
-  updateCart();
+        <button
+          class="search-add-btn"
+          onclick="addToCart(
+            '${safeName}',
+            ${product.price},
+            '${product.img}'
+          )"
+        >
+          ➕
+        </button>
 
-  renderCartPage();
+      </div>
+    `;
+  });
 
-  setupGlobalSearch();
+  container.innerHTML = html;
 
-  loadProductDetails();
+  container.style.display = "block";
 }
 
 /* ================= START ================= */
@@ -1120,6 +1557,10 @@ function loadPageData() {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+
+    /* REMOVE AUTO LOGIN POPUP */
+
+    // checkUserLogin();
 
     updateCart();
 
