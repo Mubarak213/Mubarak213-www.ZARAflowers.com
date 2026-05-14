@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <meta charset="UTF-8" />
@@ -12,7 +13,11 @@
   <title>Flowers - ShopMart</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
 
 </head>
 
@@ -22,13 +27,13 @@
 
 <header class="header">
 
-  <!-- Logo -->
+  <!-- LOGO -->
 
   <div class="logo">
     Zahra Garlands
   </div>
 
-  <!-- SEARCH -->
+  <!-- ================= SEARCH ================= -->
 
   <div class="search-wrapper">
 
@@ -41,11 +46,13 @@
         autocomplete="off"
       >
 
-      <span>🔍</span>
+      <span class="search-icon">
+        🔍
+      </span>
 
     </div>
 
-    <!-- SEARCH SUGGESTIONS -->
+    <!-- SEARCH RESULTS -->
 
     <div
       id="searchResults"
@@ -54,21 +61,29 @@
 
   </div>
 
-  <!-- ACTIONS -->
+  <!-- ================= ACTIONS ================= -->
 
   <div class="actions">
 
-    <button class="btn">
+    <button
+      class="btn"
+      onclick="saveMobileNumber()"
+    >
       Login
     </button>
 
     <!-- CART -->
 
-    <a href="cart.html" class="btn">
+    <a
+      href="cart.html"
+      class="btn"
+    >
 
       Cart 🛒
 
-      <span id="cart-count">0</span>
+      <span id="cart-count">
+        0
+      </span>
 
     </a>
 
@@ -76,7 +91,7 @@
 
 </header>
 
-<!-- ================= NAVIGATION ================= -->
+<!-- ================= CATEGORY NAVIGATION ================= -->
 
 <nav class="category-bar">
 
@@ -84,7 +99,10 @@
     🏠 Home
   </a>
 
-  <a href="flowers.html" class="active">
+  <a
+    href="flowers.html"
+    class="active"
+  >
     🌸 Flowers
   </a>
 
@@ -112,19 +130,19 @@
 
 <!-- ================= PAGE TITLE ================= -->
 
-<section class="section">
+<section class="section page-header">
 
-  <h2>
+  <h1 class="page-title">
     🌸 Flowers Collection
-  </h2>
+  </h1>
 
-  <p class="section-subtitle">
+  <p class="page-subtitle">
     Explore flower subcategories and products
   </p>
 
 </section>
 
-<!-- ================= FLOWERS CATEGORY ================= -->
+<!-- ================= FLOWERS CATEGORIES ================= -->
 
 <section class="section">
 
@@ -139,12 +157,16 @@
 
 <div class="contact-buttons">
 
+  <!-- CALL -->
+
   <a
     href="tel:+919159842232"
     class="call-btn"
   >
     📞 Call Us
   </a>
+
+  <!-- WHATSAPP -->
 
   <a
     href="https://wa.me/919159842232?text=Hello%20I%20need%20help%20with%20flowers"
@@ -162,7 +184,7 @@
   © 2026 ShopMart | All Rights Reserved
 </footer>
 
-<!-- ================= SCRIPT ================= -->
+<!-- ================= MAIN SCRIPT ================= -->
 
 <script src="script.js"></script>
 
@@ -170,26 +192,24 @@
 
 <script>
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-      if (typeof updateCart === "function") {
-
-        updateCart();
-      }
-
-      if (typeof renderCartPage === "function") {
-
-        renderCartPage();
-      }
-
-      if (typeof fetchSheetData === "function") {
-
-        fetchSheetData();
-      }
+    if (typeof updateCart === "function") {
+      updateCart();
     }
-  );
+
+    if (typeof renderCartPage === "function") {
+      renderCartPage();
+    }
+
+    if (typeof fetchSheetData === "function") {
+      fetchSheetData();
+    }
+
+  }
+);
 
 </script>
 

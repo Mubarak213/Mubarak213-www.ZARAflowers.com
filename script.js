@@ -60,7 +60,7 @@ const subCategoryImages = {
 
   flowers: {
 
-"🌸 raw flowers": {
+   "🌸 raw flowers": {
 
       "rose":
         "https://drive.google.com/thumbnail?id=130_vgrEaMKH5WPb4F7rZfV5t8KQ7Hlql&sz=w1000",
@@ -86,20 +86,7 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
     },
 
-
-    "👶 baby shower": {
-
-      "jadai":
-        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
-
-      "decoration":
-        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
-
-      "malai":
-        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
-    },
-
-   "👶 puberty": {
+   "👩 puberty": {
 
       jadai:
         "https://drive.google.com/thumbnail?id=1bAYErvna1ajEf4-1XHUudYTYp7zKP65R&sz=w1000",
@@ -109,18 +96,6 @@ const subCategoryImages = {
 
       malai:
         "https://drive.google.com/thumbnail?id=1tG4B6tL2U7HKwH2OLQy8SISG_XTWtfPe&sz=w1000"
-    },
-
-    "👶  house warming": {
-
-      "jadai":
-        "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
-
-      "decoration":
-        "https://drive.google.com/thumbnail?id=1XOVsn3ENf-rMpfi5DfQ7h68bfC1y9ptf&sz=w1000",
-
-      "malai":
-        "https://drive.google.com/thumbnail?id=1OOu2BqXjp0_s0yUauXyKQVU6yCdgEDzf&sz=w1000"
     },
 
     "💍 engagement": {
@@ -134,7 +109,8 @@ const subCategoryImages = {
       "jadai":
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     },
-"👰🤵 wedding": {
+    
+   "👰🤵 wedding": {
 
       "malai":
         "https://drive.google.com/thumbnail?id=1s6-LDMmFgDxpELMtEC85huzXgDWnHj3v&sz=w1000",
@@ -146,7 +122,19 @@ const subCategoryImages = {
         "https://drive.google.com/thumbnail?id=1Mu36xdBEvEhoo8slv48_E7G2YQeRRida&sz=w1000"
     },
 
-    "👶  house warming": {
+	"🤰 baby shower": {
+
+      "jadai":
+        "https://drive.google.com/thumbnail?id=1b8O7xiRoIhDmGOKBxOU45bxFfeRlNbm4&sz=w1000",
+
+      "decoration":
+        "https://drive.google.com/thumbnail?id=1VjO33t-Iq0NdsaXQN15RrL9sC9N_aM2h&sz=w1000",
+
+      "malai":
+        "https://drive.google.com/thumbnail?id=1pm0Gxi9e0zl7IZDxXdjG5Qh7GQVxSlyD&sz=w1000"
+    },
+
+    "🏡 house warming": {
 
       "jadai":
         "https://drive.google.com/thumbnail?id=1jYMhc-KqoL7oKd7wXrda_hEWsnvFBoyu&sz=w1000",
@@ -203,14 +191,6 @@ function convertDriveImage(url) {
   return url;
 }
 
-/* ================= PROCESS DATA ================= */
-/* ================= PROCESS DATA ================= */
-    /* ================= NEW ARRIVAL ================= */
-
-    /* ================= NORMAL CATEGORY ================= */
-
-/* ================= CUSTOM CATEGORY ORDER ================= */
-
 
 /* ================= PROCESS DATA ================= */
 
@@ -258,48 +238,36 @@ function processSheetData(rows) {
 
     if (!mainCategory || !subCategory) return;
 
-    /* ================= NEW ARRIVAL ================= */
+   /* ================= NEW ARRIVAL ================= */
 
-    if (type === "new_arrival") {
+if (type === "new_arrival") {
 
-      let main =
-        newArrivalData.find(
-          item => item.category === mainCategory
-        );
+  let main =
+    newArrivalData.find(
+      item => item.category === mainCategory
+    );
 
-      if (!main) {
+  if (!main) {
 
-        main = {
+    main = {
 
-          category: mainCategory,
+      category: mainCategory,
 
-          title: categoryTitle,
+      products: []
+    };
 
-          subcategories: []
-        };
+    newArrivalData.push(main);
+  }
 
-        newArrivalData.push(main);
-      }
+  main.products.push({
 
-      let sub =
-        main.subcategories.find(
-          item => item.name === subCategory
-        );
+    ...product,
 
-      if (!sub) {
+    subcategory: subCategory,
 
-        sub = {
-
-          name: subCategory,
-
-          products: []
-        };
-
-        main.subcategories.push(sub);
-      }
-
-      sub.products.push(product);
-    }
+    title: categoryTitle
+  });
+}
 
     /* ================= NORMAL CATEGORY ================= */
 
@@ -350,15 +318,15 @@ function processSheetData(rows) {
 
   /* ================= CUSTOM CATEGORY ORDER ================= */
 
-  const desiredOrder = [
-    "🌸 raw flowers",
-    "👶 baby",
-    "👶 puberty",
-    "💍 engagement",
-    "👰🤵 wedding",
-    "👶 baby shower",
-    "👶 house warming"
-  ];
+ const desiredOrder = [
+  "🌸 raw flowers",
+  "👶 baby",
+  "👩 puberty",
+  "💍 engagement",
+  "👰🤵 wedding",
+  "🤰 baby shower",
+  "🏡 house warming"
+];
 
   Object.keys(categoryData).forEach(mainCategory => {
 
@@ -529,12 +497,20 @@ function showProducts(containerId, catIndex, subIndex) {
 
     html += `
 
-      <div class="card product-card">
+      <div
+  class="card product-card"
+  onclick="openProductPage(
+    '${safeName}',
+    ${p.price},
+    '${p.img}',
+    '${containerId}',
+    '${sub.name}'
+  )"
+>
 
         <button
           class="add-btn"
-          onclick="event.stopPropagation();
-          addToCart('${safeName}', ${p.price}, '${p.img}')"
+          onclick="addToCart('${safeName}', ${p.price}, '${p.img}')"
         >
           ➕
         </button>
@@ -591,7 +567,7 @@ function goBack(containerId) {
   );
 }
 
-/* ================= NEW ARRIVALS ================= */
+/* ================= RENDER NEW ARRIVALS ================= */
 
 function renderNewArrivals() {
 
@@ -602,52 +578,70 @@ function renderNewArrivals() {
 
   let html = "";
 
-  newArrivalData.forEach(cat => {
+  newArrivalData.forEach(category => {
 
     html += `
 
-      <div class="new-arrival-section">
+      <div class="latest-category-wrapper">
 
-        <h2 class="new-arrival-title">
-          ${cat.title}
+        <h2 class="latest-category-title">
+
+          ${category.category} New Arrivals
+
         </h2>
 
         <div class="new-arrival-row">
     `;
 
-    cat.subcategories.forEach(sub => {
+    category.products.forEach(product => {
 
-      sub.products.forEach(p => {
+      const safeName =
+        product.name.replace(/'/g, "\\'");
 
-        const safeName =
-          p.name.replace(/'/g, "\\'");
+      html += `
 
-        html += `
+        <div
+  class="card new-arrival-card"
+  onclick="openProductPage(
+    '${safeName}',
+    ${product.price},
+    '${product.img}',
+    '${category.category}',
+    '${product.subcategory}'
+  )"
+>
 
-          <div class="card new-arrival-card">
+          <button
+            class="add-btn"
+            onclick="event.stopPropagation(); addToCart(
+              '${safeName}',
+              ${product.price},
+              '${product.img}'
+            )"
+          >
+            ➕
+          </button>
 
-            <button
-              class="add-btn"
-              onclick="addToCart('${safeName}', ${p.price}, '${p.img}')"
-            >
-              ➕
-            </button>
+          <img
+            src="${product.img}"
+            alt="${product.name}"
+            onerror="this.src='images/no-image.jpg'"
+          >
 
-            <img
-              src="${p.img}"
-              alt="${p.name}"
-              onerror="this.src='images/no-image.jpg'"
-            >
+          <h4>
+            ${product.name}
+          </h4>
 
-            <h4>${p.name}</h4>
+          <p>
+            ₹${product.price}
+          </p>
 
-            <p>₹${p.price}</p>
+          <small>
+            ${product.subcategory}
+          </small>
 
-            <small>${sub.name}</small>
-
-          </div>
-        `;
-      });
+        </div>
+      `;
     });
 
     html += `
@@ -658,7 +652,6 @@ function renderNewArrivals() {
 
   container.innerHTML = html;
 }
-
 
 
 /* ================= UPDATE CART ================= */
@@ -1476,6 +1469,165 @@ function getAllProducts() {
   return uniqueProducts;
 }
 
+
+/* ================= PRODUCT DETAILS PAGE ================= */
+
+function openProductPage(name, price, img, category, subcategory) {
+
+  const product = {
+
+    name,
+    price,
+    img,
+    category,
+    subcategory
+  };
+
+  localStorage.setItem(
+    "selectedProduct",
+    JSON.stringify(product)
+  );
+
+  window.location.href =
+    "product.html";
+}
+
+/* ================= LOAD PRODUCT DETAILS ================= */
+
+function loadProductDetails() {
+
+  const container =
+    document.getElementById(
+      "product-details"
+    );
+
+  if (!container) return;
+
+  const product =
+    JSON.parse(
+      localStorage.getItem(
+        "selectedProduct"
+      )
+    );
+
+  if (!product) {
+
+    container.innerHTML = `
+
+      <div class="section">
+
+        <h2>
+          Product not found
+        </h2>
+
+      </div>
+    `;
+
+    return;
+  }
+
+  const safeName =
+    product.name.replace(/'/g, "\\'");
+
+  container.innerHTML = `
+
+    <div class="product-details-container">
+
+      <div class="product-details-image">
+
+        <img
+          src="${product.img}"
+          alt="${product.name}"
+          onerror="this.src='images/no-image.jpg'"
+        >
+
+      </div>
+
+      <div class="product-details-info">
+
+        <h1>
+          ${product.name}
+        </h1>
+
+        <div class="product-price">
+          ₹${product.price}
+        </div>
+
+        <div class="product-category">
+
+          Category:
+          ${product.category}
+
+          <br><br>
+
+          Subcategory:
+          ${product.subcategory}
+
+        </div>
+
+        <div class="product-description">
+
+          Premium quality product from ShopMart.
+
+          Fresh and high-quality items available
+          for fast delivery.
+
+        </div>
+
+        <div class="details-buttons">
+
+          <button
+            class="details-btn cart-btn"
+            onclick="addToCart(
+              '${safeName}',
+              ${product.price},
+              '${product.img}'
+            )"
+          >
+            Add To Cart
+          </button>
+
+          <button
+            class="details-btn buy-btn"
+            onclick="buyNowSingleProduct(
+              '${safeName}',
+              ${product.price},
+              '${product.img}'
+            )"
+          >
+            Buy Now
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+/* ================= BUY NOW SINGLE PRODUCT ================= */
+
+function buyNowSingleProduct(name, price, img) {
+
+  cart = [];
+
+  cart.push({
+
+    name,
+    price,
+    img,
+    qty: 1
+  });
+
+  updateCart();
+
+  window.location.href =
+    "cart.html";
+}
+
+
+
 /* ================= RENDER SEARCH RESULTS ================= */
 
 function renderSearchResults(products, container) {
@@ -1551,6 +1703,31 @@ function renderSearchResults(products, container) {
 
   container.style.display = "block";
 }
+
+
+
+/* ================= FOUNDERS SLIDER ================= */
+
+let currentSlide = 0;
+
+function nextSlide() {
+  const slides = document.querySelectorAll(".slide");
+
+  if (slides.length === 0) return;
+
+  slides.forEach(slide => {
+    slide.classList.remove("active", "exit");
+  });
+
+  slides[currentSlide].classList.add("exit");
+
+  currentSlide = (currentSlide + 1) % slides.length;
+
+  slides[currentSlide].classList.add("active");
+}
+
+
+
 
 /* ================= START ================= */
 
