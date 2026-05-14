@@ -1748,24 +1748,58 @@ function renderSearchResults(products, container) {
 
 /* ================= FOUNDERS SLIDER ================= */
 
+/* ================= FOUNDERS SLIDER ================= */
+
 let currentSlide = 0;
 
 function nextSlide() {
-  const slides = document.querySelectorAll(".slide");
+
+  const slides =
+    document.querySelectorAll(".slide");
 
   if (slides.length === 0) return;
 
-  slides.forEach(slide => {
+  /* REMOVE OLD CLASSES */
+
+  slides.forEach((slide) => {
+
     slide.classList.remove("active", "exit");
+
   });
+
+  /* CURRENT SLIDE EXIT */
 
   slides[currentSlide].classList.add("exit");
 
-  currentSlide = (currentSlide + 1) % slides.length;
+  /* NEXT SLIDE */
+
+  currentSlide =
+    (currentSlide + 1) % slides.length;
+
+  /* SHOW NEXT */
 
   slides[currentSlide].classList.add("active");
 }
 
+/* ================= INITIALIZE ================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const slides =
+      document.querySelectorAll(".slide");
+
+    if (slides.length > 0) {
+
+      slides[0].classList.add("active");
+
+      /* AUTO SLIDE */
+
+      setInterval(nextSlide, 3000);
+    }
+  }
+);
 
 
 
