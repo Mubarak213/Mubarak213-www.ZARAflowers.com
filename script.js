@@ -709,6 +709,8 @@ function addToCart(name, price, img = "") {
 
 /* ================= RENDER CART PAGE ================= */
 
+/* ================= RENDER CART PAGE ================= */
+
 function renderCartPage() {
 
   const container =
@@ -717,34 +719,46 @@ function renderCartPage() {
   const totalDiv =
     document.getElementById("cart-total");
 
+  const emptyCart =
+    document.getElementById("empty-cart");
+
+  const summaryItems =
+    document.getElementById("summary-items");
+
   if (!container) return;
 
   container.innerHTML = "";
 
+  /* ================= EMPTY CART ================= */
+
   if (cart.length === 0) {
 
-    container.innerHTML = `
-
-      <div class="empty-cart">
-
-        <h3>🛒 Your cart is empty</h3>
-
-        <a href="index.html" class="btn">
-          Continue Shopping
-        </a>
-
-      </div>
-    `;
+    if (emptyCart) {
+      emptyCart.style.display = "block";
+    }
 
     if (totalDiv) {
-
       totalDiv.innerHTML = "";
     }
 
+    if (summaryItems) {
+      summaryItems.innerHTML = "0";
+    }
+
     return;
+
+  } else {
+
+    if (emptyCart) {
+      emptyCart.style.display = "none";
+    }
   }
 
+  /* ================= CART ITEMS ================= */
+
   let total = 0;
+
+  let totalQty = 0;
 
   cart.forEach((item, index) => {
 
@@ -752,6 +766,8 @@ function renderCartPage() {
       item.price * item.qty;
 
     total += subtotal;
+
+    totalQty += item.qty;
 
     container.innerHTML += `
 
@@ -800,13 +816,22 @@ function renderCartPage() {
     `;
   });
 
+  /* ================= UPDATE TOTAL ================= */
+
   if (totalDiv) {
 
     totalDiv.innerHTML =
-      `Grand Total : ₹${total}`;
+      `₹${total}`;
+  }
+
+  /* ================= UPDATE ITEM COUNT ================= */
+
+  if (summaryItems) {
+
+    summaryItems.innerHTML =
+      totalQty;
   }
 }
-
 /* ================= CHANGE QUANTITY ================= */
 
 function changeQty(index, action) {
@@ -1272,9 +1297,15 @@ function renderSearchSuggestions(products, container) {
     html += `
 
       <div
-        class="search-suggestion"
-        onclick="showSearchProducts('${safeName}')"
-      >
+  class="search-suggestion"
+  onclick="openProductPage(
+    '${safeName}',
+    ${product.price},
+    '${product.img}',
+    '${product.category}',
+    '${product.subcategory}'
+  )"
+>
 
         <span class="search-icon">
           🔍
@@ -1356,7 +1387,16 @@ function renderFullSearchResults(products, container) {
 
     html += `
 
-      <div class="search-item">
+      <div
+  class="search-item"
+  onclick="openProductPage(
+    '${safeName}',
+    ${product.price},
+    '${product.img}',
+    '${product.category}',
+    '${product.subcategory}'
+  )"
+>
 
         <img
           src="${product.img}"
@@ -1382,11 +1422,11 @@ function renderFullSearchResults(products, container) {
 
         <button
           class="search-add-btn"
-          onclick="addToCart(
-            '${safeName}',
-            ${product.price},
-            '${product.img}'
-          )"
+          onclick="event.stopPropagation(); addToCart(
+  '${safeName}',
+  ${product.price},
+  '${product.img}'
+)"
         >
           ➕
         </button>
@@ -1426,22 +1466,22 @@ function getAllProducts() {
 
           products.push({
 
-            name:
-              product.name || "No Name",
+  name:
+    product.name || "No Name",
 
-            price:
-              product.price || 0,
+  price:
+    product.price || 0,
 
-            img:
-              product.img ||
-              "images/no-image.jpg",
+  img:
+    product.img ||
+    "images/no-image.jpg",
 
-            category:
-              category.title || "",
+  category:
+    mainCategory || "",
 
-            subcategory:
-              sub.name || ""
-          });
+  subcategory:
+    sub.name || ""
+});
         });
       });
     });
